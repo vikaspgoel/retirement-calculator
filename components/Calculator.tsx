@@ -1,0 +1,123 @@
+'use client'
+
+import { useState } from 'react'
+import { calculateRetirementCorpus, CalculatorInputs } from '@/lib/calculator'
+import CalculatorForm from './CalculatorForm'
+import CalculatorResults from './CalculatorResults'
+
+export default function Calculator() {
+  const [userName, setUserName] = useState('')
+  const [showCalculator, setShowCalculator] = useState(false)
+  const [inputs, setInputs] = useState<CalculatorInputs>({
+    currentAge: 30,
+    retirementAge: 60,
+    currentCorpus: 0,
+    expectedReturn: 12,
+    inflationRate: 5.5,
+    lifeExpectancy: 85,
+    retirementMonthlyExpenses: 50000,
+    oneOffAnnualExpenses: 100000,
+  })
+  const [results, setResults] = useState<any>(null)
+  const [showResults, setShowResults] = useState(false)
+  const [email, setEmail] = useState('')
+
+  const handleNameSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (userName.trim()) {
+      setShowCalculator(true)
+    }
+  }
+
+  const handleInputChange = (field: keyof CalculatorInputs, value: number) => {
+    setInputs((prev) => ({ ...prev, [field]: value }))
+    setShowResults(false) // Hide results when inputs change
+  }
+
+  const handleSubmit = () => {
+    // Calculate results directly
+    setResults(calculateRetirementCorpus(inputs))
+    setShowResults(true)
+  }
+
+
+  if (!showCalculator) {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 max-w-2xl mx-auto">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+            Hey there, looking to retire early?
+          </h1>
+          <p className="text-lg text-gray-700 mb-2">
+            Didn't have a good day at office? Don't worry, shit happens.
+          </p>
+        </div>
+        
+        <form onSubmit={handleNameSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              What should we call you? (Name or initials work!)
+            </label>
+            <input
+              id="name"
+              type="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-gray-900 bg-white text-lg"
+              placeholder="Enter your name or initials"
+              autoFocus
+            />
+          </div>
+          
+          <button
+            type="submit"
+            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-lg"
+          >
+            Let's Get Started!
+          </button>
+        </form>
+      </div>
+    )
+  }
+
+  return (
+    <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+      <div className="mb-6">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+          Hey {userName}!
+        </h1>
+        <p className="text-gray-600">
+          Just input these numbers and we will do the rest for you.
+        </p>
+      </div>
+
+      <CalculatorForm 
+        inputs={inputs} 
+        onChange={handleInputChange}
+        userName={userName}
+      />
+
+      <div className="mt-8 pt-6 border-t border-gray-200">
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-4 px-6 rounded-lg transition-all text-lg shadow-lg hover:shadow-xl"
+        >
+          Let's See What The Numbers Say!
+        </button>
+      </div>
+
+      {showResults && results && (
+        <div className="mt-8">
+          <CalculatorResults 
+            results={results} 
+            userName={userName}
+            email={email}
+            inputs={inputs}
+            onEmailChange={setEmail}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
