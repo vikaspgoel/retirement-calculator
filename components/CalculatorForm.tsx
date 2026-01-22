@@ -64,7 +64,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
         if (yearsEarly > 0) {
           return `Wow, you will get ${yearsEarly} year${yearsEarly > 1 ? 's' : ''} of fun time away from your boss!`
         } else if (yearsEarly < 0) {
-          return `Standard retirement age in India is 58, but you're planning for ${Math.abs(yearsEarly)} year${Math.abs(yearsEarly) > 1 ? 's' : ''} later`
+          return `Standard retirement age in India is 58, but you&apos;re planning for ${Math.abs(yearsEarly)} year${Math.abs(yearsEarly) > 1 ? 's' : ''} later`
         } else {
           return "Standard retirement age in India is 58 - right on track!"
         }
@@ -92,7 +92,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       format: (val: number) => (val / 1000).toFixed(0) + 'K',
-      narration: "Enter your expected monthly expenses at retirement year (we'll account for inflation after that)",
+      narration: "Enter your expected monthly expenses at retirement year (we&apos;ll account for inflation after that)",
     },
     {
       id: 'oneOffAnnualExpenses' as keyof CalculatorInputs,
@@ -115,7 +115,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 1,
       icon: Calendar,
       suffix: 'years',
-      narration: "Average Indian male life expectancy is around 70 years, but let's plan for longer just in case",
+      narration: "Average Indian male life expectancy is around 70 years, but let&apos;s plan for longer just in case",
     },
     {
       id: 'inflationRate' as keyof CalculatorInputs,
