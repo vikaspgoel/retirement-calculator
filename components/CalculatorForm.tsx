@@ -57,7 +57,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 1,
       icon: Calendar,
       suffix: 'years',
-      narration: "Dream retirement age? Let's make it happen!",
+      narration: "Dream retirement age? Let&apos;s make it happen!",
       getDynamicNarration: (value: number) => {
         const standardRetirementAge = 58
         const yearsEarly = standardRetirementAge - value
