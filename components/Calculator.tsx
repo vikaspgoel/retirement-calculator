@@ -9,14 +9,14 @@ export default function Calculator() {
   const [userName, setUserName] = useState('')
   const [showCalculator, setShowCalculator] = useState(false)
   const [inputs, setInputs] = useState<CalculatorInputs>({
-    currentAge: 30,
-    retirementAge: 60,
+    currentAge: 0,
+    retirementAge: 0,
     currentCorpus: 0,
-    expectedReturn: 12,
-    inflationRate: 5.5,
-    lifeExpectancy: 85,
-    retirementMonthlyExpenses: 50000,
-    oneOffAnnualExpenses: 100000,
+    expectedReturn: 0,
+    inflationRate: 0,
+    lifeExpectancy: 0,
+    retirementMonthlyExpenses: 0,
+    oneOffAnnualExpenses: 0,
   })
   const [results, setResults] = useState<any>(null)
   const [showResults, setShowResults] = useState(false)

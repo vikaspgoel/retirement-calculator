@@ -170,7 +170,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
                   min={field.min}
                   max={field.max}
                   step={field.step}
-                  value={field.value}
+                  value={field.value === 0 ? '' : field.value}
                   onChange={(e) => {
                     const value = e.target.value
                     if (value === '' || value === null || value === undefined) {
