@@ -49,7 +49,7 @@ export default function Calculator() {
             Hey there, looking to retire early?
           </h1>
           <p className="text-lg text-gray-700 mb-2">
-            Didn't have a good day at office? Don't worry, shit happens.
+            Didn&apos;t have a good day at office? Don&apos;t worry, shit happens.
           </p>
         </div>
         
@@ -74,7 +74,7 @@ export default function Calculator() {
             type="submit"
             className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-lg"
           >
-            Let's Get Started!
+            Let&apos;s Get Started!
           </button>
         </form>
       </div>
@@ -103,7 +103,7 @@ export default function Calculator() {
           onClick={handleSubmit}
           className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-4 px-6 rounded-lg transition-all text-lg shadow-lg hover:shadow-xl"
         >
-          Let's See What The Numbers Say!
+          Let&apos;s See What The Numbers Say!
         </button>
       </div>
 

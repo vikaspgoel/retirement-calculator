@@ -44,10 +44,10 @@ export default function CalculatorResults({ results, userName, email, inputs, on
     <div className="space-y-6 mt-8 pt-6 border-t-2 border-gray-200">
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-gray-900 mb-2">
-          Here's Your Plan, {userName}!
+          Here&apos;s Your Plan, {userName}!
         </h2>
         <p className="text-gray-600">
-          Let's see what the numbers say...
+          Let&apos;s see what the numbers say...
         </p>
       </div>
 
@@ -61,7 +61,7 @@ export default function CalculatorResults({ results, userName, email, inputs, on
           {formatCurrency(results.grossCorpusRequired)}
         </div>
         <p className="text-sm text-blue-700">
-          This is the total amount you'll need at age {inputs.retirementAge} to sustain your retirement lifestyle
+          This is the total amount you&apos;ll need at age {inputs.retirementAge} to sustain your retirement lifestyle
         </p>
       </div>
 
@@ -226,7 +226,7 @@ export default function CalculatorResults({ results, userName, email, inputs, on
               <span className="font-bold text-green-900">{formatCurrency(results.grossCorpusRequired)}</span>.
             </p>
             <p className="text-xs text-green-700 mt-2">
-              That's a savings of{' '}
+              That&apos;s a savings of{' '}
               <span className="font-semibold">
                 {formatCurrency(results.grossCorpusRequired - calculateRetirementCorpus({
                   ...inputs,
@@ -257,7 +257,7 @@ export default function CalculatorResults({ results, userName, email, inputs, on
             placeholder="your.email@example.com"
           />
           <p className="text-xs text-blue-700 mt-1">
-            We'll send you a summary of your retirement plan
+            We&apos;ll send you a summary of your retirement plan
           </p>
         </div>
         {email && (
