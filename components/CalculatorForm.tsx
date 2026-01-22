@@ -207,11 +207,6 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
               <p className="text-xs text-gray-400 italic">
                 {field.getDynamicNarration ? field.getDynamicNarration(field.value) : field.narration}
               </p>
-              {field.tip && (
-                <p className="text-xs text-orange-600 font-medium mt-1">
-                  Tip: {field.tip}
-                </p>
-              )}
 
               {field.showInfo && field.id === 'expectedReturn' && (
                 <div className="mt-2 space-y-3">
