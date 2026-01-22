@@ -180,14 +180,6 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
                       onChange(field.id, isNaN(numValue) ? 0 : numValue)
                     }
                   }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Backspace' || e.key === 'Delete') {
-                      const target = e.target as HTMLInputElement
-                      if (target.value.length === 1) {
-                        onChange(field.id, 0)
-                      }
-                    }
-                  }}
                   className={`w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all text-gray-900 bg-white ${
                     field.prefix ? 'pl-8' : ''
                   } ${field.suffix ? 'pr-16' : ''}`}
