@@ -1,0 +1,31 @@
+---
+description: React/JSX coding standards
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+# React/JSX Standards
+
+## Escape Special Characters in JSX Text
+
+Always escape these characters in JSX text content:
+
+| Character | Use Instead |
+|-----------|-------------|
+| `'` (apostrophe) | `&apos;` |
+| `"` (quote) | `&quot;` |
+| `<` | `&lt;` |
+| `>` | `&gt;` |
+
+```tsx
+// ❌ BAD - will cause build errors
+<p>Let's go</p>
+<p>It's working</p>
+
+// ✅ GOOD
+<p>Let&apos;s go</p>
+<p>It&apos;s working</p>
+```
+
+## Why?
+React's ESLint rules require escaping to prevent XSS vulnerabilities and ensure proper rendering.

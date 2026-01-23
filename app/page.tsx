@@ -1,6 +1,11 @@
+'use client'
+
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Home() {
+  const [showTools, setShowTools] = useState(false)
+
   return (
     <main className="min-h-screen bg-black flex flex-col items-center justify-center px-6">
       {/* Main Title */}
@@ -17,14 +22,28 @@ export default function Home() {
         Let&apos;s take this offline — life&apos;s waiting.
       </p>
 
-      {/* Tools link - subtle */}
-      <div className="fixed bottom-8 left-0 right-0 text-center animate-fade-in-delay">
-        <Link 
-          href="/calculator" 
-          className="text-gray-700 hover:text-gray-400 text-xs transition-colors"
+      {/* Tools Section */}
+      <div className="mt-16 text-center animate-fade-in-delay">
+        <button
+          onClick={() => setShowTools(!showTools)}
+          className="text-gray-400 hover:text-white text-sm transition-colors border border-gray-700 hover:border-gray-500 px-6 py-3 rounded-lg"
         >
-          retirement calculator →
-        </Link>
+          Tools for Life {showTools ? '−' : '+'}
+        </button>
+
+        {showTools && (
+          <div className="mt-6 space-y-3">
+            <Link
+              href="/calculator"
+              className="block text-gray-300 hover:text-white transition-colors text-sm"
+            >
+              → Retirement Calculator
+            </Link>
+            <p className="text-gray-600 text-sm italic">
+              Other tools coming soon...
+            </p>
+          </div>
+        )}
       </div>
     </main>
   )
