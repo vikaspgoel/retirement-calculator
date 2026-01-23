@@ -49,7 +49,8 @@ const INFLATION_DATA = [
 const AVG_LARGE_CAP = LARGE_CAP_EQUITY.reduce((sum, item) => sum + item.postTax, 0) / LARGE_CAP_EQUITY.length
 const AVG_LONG_TERM_DEBT = LONG_TERM_DEBT.reduce((sum, item) => sum + item.postTax, 0) / LONG_TERM_DEBT.length
 const AVG_FD = FD_RATES.reduce((sum, item) => sum + item.postTax, 0) / FD_RATES.length
-export const AVG_BLENDED_RETURN = (AVG_LARGE_CAP + AVG_LONG_TERM_DEBT + AVG_FD) / 3
+// Weighted allocation: 60% Large Cap Equity, 30% Debt, 10% FD
+export const AVG_BLENDED_RETURN = (AVG_LARGE_CAP * 0.60) + (AVG_LONG_TERM_DEBT * 0.30) + (AVG_FD * 0.10)
 export const AVG_INFLATION = INFLATION_DATA.reduce((sum, item) => sum + item.rate, 0) / INFLATION_DATA.length
 
 // Format number with Indian comma separators (lakhs, crores)

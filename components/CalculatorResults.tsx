@@ -114,7 +114,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
         </div>
         <p className="text-sm text-purple-700 mb-4">
           Based on some realistic assumptions - last 3 years average inflation (<span className="font-semibold">{AVG_INFLATION.toFixed(1)}%</span>) 
-          and a balanced portfolio return (33% each in FD, Large Cap Equity, and Long Term Debt = <span className="font-semibold">{AVG_BLENDED_RETURN.toFixed(1)}%</span>)
+          and a weighted portfolio return (60% Large Cap Equity, 30% Debt, 10% FD = <span className="font-semibold">{AVG_BLENDED_RETURN.toFixed(1)}%</span>)
         </p>
         
         <div className="space-y-4">

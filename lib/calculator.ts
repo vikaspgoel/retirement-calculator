@@ -248,7 +248,7 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
 }
 
 // Calculate realistic scenario based on historical averages
-// Uses: 3-year avg inflation (5.7%), blended return (33% each: FD, Large Cap, Debt)
+// Uses: 3-year avg inflation (5.7%), weighted return (60% Large Cap, 30% Debt, 10% FD)
 export function calculateRealisticScenario(
   inputs: CalculatorInputs,
   avgInflation: number,
