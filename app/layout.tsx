@@ -1,12 +1,22 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Space_Mono, Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const spaceMono = Space_Mono({ 
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-mono'
+})
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter'
+})
 
 export const metadata: Metadata = {
-  title: 'Retirement Corpus Calculator',
-  description: 'Plan your retirement with Indian tax considerations',
+  title: 'Bored Room | Where Meetings Go to Die',
+  description: 'Not your average board room. Welcome to the Bored Room - celebrating the art of surviving corporate meetings.',
+  keywords: ['bored room', 'office humor', 'meetings', 'corporate satire'],
 }
 
 export default function RootLayout({
@@ -16,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${spaceMono.variable} ${inter.variable} font-sans`}>
         {children}
       </body>
     </html>
