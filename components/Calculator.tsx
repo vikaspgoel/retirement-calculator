@@ -12,6 +12,7 @@ export default function Calculator() {
     currentAge: 0,
     retirementAge: 0,
     currentCorpus: 0,
+    currentROI: parseFloat(AVG_BLENDED_RETURN.toFixed(1)),
     expectedReturn: parseFloat(AVG_BLENDED_RETURN.toFixed(1)),
     inflationRate: 5.7,
     lifeExpectancy: 85,

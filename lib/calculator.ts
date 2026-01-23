@@ -4,11 +4,12 @@ export interface CalculatorInputs {
   currentAge: number
   retirementAge: number
   currentCorpus: number
-  expectedReturn: number // Annual return percentage
+  currentROI: number // ROI applied on existing corpus till retirement
+  expectedReturn: number // Annual return percentage for future contributions
   inflationRate: number // Annual inflation percentage
   lifeExpectancy: number
-  retirementMonthlyExpenses: number // Monthly expenses during retirement
-  oneOffAnnualExpenses: number // One-off annual expenses during retirement
+  retirementMonthlyExpenses: number // Monthly expenses - target lifestyle but today's value
+  oneOffAnnualExpenses: number // One-time annual expenses - target lifestyle but today's value
 }
 
 export interface CalculatorResult {
@@ -122,10 +123,11 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
   // Using post-tax returns for accumulation
   const postTaxReturn = getPostTaxReturn(inputs.expectedReturn, false)
 
-  // User enters expenses at retirement year, so we use them directly
-  // Inflation will be applied during retirement years
-  const monthlyExpensesAtRetirement = inputs.retirementMonthlyExpenses
-  const annualExpensesAtRetirement = (monthlyExpensesAtRetirement * 12) + inputs.oneOffAnnualExpenses
+  // User enters expenses in today's value, so we need to inflate them to retirement year
+  // First, inflate expenses from today to retirement year
+  const monthlyExpensesAtRetirement = inputs.retirementMonthlyExpenses * Math.pow(1 + inputs.inflationRate / 100, yearsToRetirement)
+  const oneOffExpensesAtRetirement = inputs.oneOffAnnualExpenses * Math.pow(1 + inputs.inflationRate / 100, yearsToRetirement)
+  const annualExpensesAtRetirement = (monthlyExpensesAtRetirement * 12) + oneOffExpensesAtRetirement
 
   // Calculate required corpus using present value of annuity
   // Assuming expenses increase with inflation during retirement
@@ -151,9 +153,10 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
     corpusRequiredPV = annualExpensesAtRetirement * yearsInRetirement
   }
 
-  // Calculate future value of current corpus
+  // Calculate future value of current corpus using currentROI
+  const postTaxCurrentROI = getPostTaxReturn(inputs.currentROI, false)
   const futureValueOfCurrentCorpus =
-    inputs.currentCorpus * Math.pow(1 + postTaxReturn / 100, yearsToRetirement)
+    inputs.currentCorpus * Math.pow(1 + postTaxCurrentROI / 100, yearsToRetirement)
   
   // Additional corpus needed beyond current savings
   const additionalCorpusRequired = Math.max(0, corpusRequiredPV - futureValueOfCurrentCorpus)
@@ -168,13 +171,13 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
       ((Math.pow(1 + monthlyReturn, months) - 1) / monthlyReturn)
   }
 
-  // Calculate total corpus at retirement (current corpus growth + contributions)
-  const corpusAtRetirement = calculateFutureValue(
-    inputs.currentCorpus,
-    monthlyContributionNeeded,
-    postTaxReturn,
-    yearsToRetirement
-  )
+  // Calculate total corpus at retirement
+  // Existing corpus grows at currentROI, new contributions grow at expectedReturn
+  const futureValueOfExistingCorpus = inputs.currentCorpus * Math.pow(1 + postTaxCurrentROI / 100, yearsToRetirement)
+  const futureValueOfContributions = monthlyContributionNeeded > 0 
+    ? calculateFutureValue(0, monthlyContributionNeeded, postTaxReturn, yearsToRetirement)
+    : 0
+  const corpusAtRetirement = futureValueOfExistingCorpus + futureValueOfContributions
 
   const shortfallOrSurplus = corpusAtRetirement - corpusRequiredPV
 
@@ -220,9 +223,10 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
     if (year > 0) {
       // Calculate returns and withdrawals for the year
       yearlyReturns = retirementCorpus * (Math.pow(1 + retirementMonthlyReturn, 12) - 1)
-      // Monthly expenses adjusted for inflation + one-off expenses
+      // Monthly expenses adjusted for inflation + one-off expenses (also inflated)
       const monthlyExpenseThisYear = monthlyExpensesAtRetirement * Math.pow(1 + inputs.inflationRate / 100, year - 1)
-      yearlyWithdrawal = (monthlyExpenseThisYear * 12) + inputs.oneOffAnnualExpenses
+      const oneOffExpenseThisYear = oneOffExpensesAtRetirement * Math.pow(1 + inputs.inflationRate / 100, year - 1)
+      yearlyWithdrawal = (monthlyExpenseThisYear * 12) + oneOffExpenseThisYear
       totalWithdrawals += yearlyWithdrawal
       retirementCorpus = retirementCorpus + yearlyReturns - yearlyWithdrawal
       retirementCorpus = Math.max(0, retirementCorpus) // Don't go negative
@@ -263,6 +267,7 @@ export function calculateRealisticScenario(
     currentAge: inputs.currentAge,
     retirementAge: inputs.retirementAge,
     currentCorpus: inputs.currentCorpus,
+    currentROI: inputs.currentROI,
     expectedReturn: avgBlendedReturn,
     inflationRate: avgInflation,
     lifeExpectancy: inputs.lifeExpectancy,
