@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { calculateRetirementCorpus, CalculatorInputs } from '@/lib/calculator'
-import CalculatorForm from './CalculatorForm'
+import CalculatorForm, { AVG_BLENDED_RETURN } from './CalculatorForm'
 import CalculatorResults from './CalculatorResults'
 
 export default function Calculator() {
@@ -12,8 +12,8 @@ export default function Calculator() {
     currentAge: 0,
     retirementAge: 0,
     currentCorpus: 0,
-    expectedReturn: 0,
-    inflationRate: 0,
+    expectedReturn: parseFloat(AVG_BLENDED_RETURN.toFixed(1)),
+    inflationRate: 5.7,
     lifeExpectancy: 0,
     retirementMonthlyExpenses: 0,
     oneOffAnnualExpenses: 0,
@@ -107,6 +107,14 @@ export default function Calculator() {
       />
 
       <div className="mt-8 pt-6 border-t border-gray-200">
+        {inputs.currentAge > 0 && inputs.retirementAge > inputs.currentAge && (
+          <div className="mb-4 p-4 bg-primary-50 rounded-lg border border-primary-200">
+            <p className="text-primary-800 text-center">
+              Hey {userName}, so you plan to retire in <span className="font-bold">{inputs.retirementAge - inputs.currentAge} years</span>. 
+              Let&apos;s see how much moolah you&apos;ll need to finally say goodbye to your alarm clock!
+            </p>
+          </div>
+        )}
         <button
           onClick={handleSubmit}
           className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-4 px-6 rounded-lg transition-all text-lg shadow-lg hover:shadow-xl"

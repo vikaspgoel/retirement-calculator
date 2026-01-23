@@ -252,18 +252,22 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
   }
 }
 
-// Calculate aggressive scenario with +1% return and -1% inflation
-export function calculateAggressiveScenario(inputs: CalculatorInputs): CalculatorResult {
-  // Create a new inputs object with adjusted rates
-  const aggressiveInputs: CalculatorInputs = {
+// Calculate realistic scenario based on historical averages
+// Uses: 3-year avg inflation (5.7%), blended return (33% each: FD, Large Cap, Debt)
+export function calculateRealisticScenario(
+  inputs: CalculatorInputs,
+  avgInflation: number,
+  avgBlendedReturn: number
+): CalculatorResult {
+  const realisticInputs: CalculatorInputs = {
     currentAge: inputs.currentAge,
     retirementAge: inputs.retirementAge,
-    currentCorpus: inputs.currentCorpus, // Include current corpus
-    expectedReturn: inputs.expectedReturn + 1, // Add 1% to return
-    inflationRate: Math.max(0.1, inputs.inflationRate - 1), // Subtract 1% from inflation (min 0.1%)
+    currentCorpus: inputs.currentCorpus,
+    expectedReturn: avgBlendedReturn,
+    inflationRate: avgInflation,
     lifeExpectancy: inputs.lifeExpectancy,
     retirementMonthlyExpenses: inputs.retirementMonthlyExpenses,
     oneOffAnnualExpenses: inputs.oneOffAnnualExpenses,
   }
-  return calculateRetirementCorpus(aggressiveInputs)
+  return calculateRetirementCorpus(realisticInputs)
 }

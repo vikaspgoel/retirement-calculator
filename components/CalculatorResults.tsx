@@ -1,7 +1,8 @@
 'use client'
 
-import { CalculatorResult, CalculatorInputs, calculateAggressiveScenario, calculateRetirementCorpus } from '@/lib/calculator'
-import { TrendingUp, Target, AlertCircle } from 'lucide-react'
+import { CalculatorResult, CalculatorInputs, calculateRealisticScenario, calculateRetirementCorpus } from '@/lib/calculator'
+import { TrendingUp, Target, AlertCircle, Lightbulb } from 'lucide-react'
+import { AVG_BLENDED_RETURN, AVG_INFLATION } from './CalculatorForm'
 
 interface CalculatorResultsProps {
   results: CalculatorResult
@@ -10,7 +11,7 @@ interface CalculatorResultsProps {
 }
 
 export default function CalculatorResults({ results, userName, inputs }: CalculatorResultsProps) {
-  const aggressiveResults = calculateAggressiveScenario(inputs)
+  const realisticResults = calculateRealisticScenario(inputs, AVG_INFLATION, AVG_BLENDED_RETURN)
 
   const formatCurrency = (value: number) => {
     if (value >= 10000000) {
@@ -90,101 +91,55 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
         </p>
       </div>
 
-      {/* Basic Math Example */}
-      <div className="bg-gray-50 p-5 rounded-xl space-y-3">
-        <h3 className="font-semibold text-gray-900 mb-3">Some Basic Math</h3>
-        <div className="space-y-3 text-sm">
-          <p className="text-gray-700">
-            If you save <span className="font-semibold text-gray-900">₹{Math.round(results.monthlyContributionNeeded / 30)}</span> every day 
-            and invest <span className="font-semibold text-gray-900">{formatCurrency(results.monthlyContributionNeeded)}</span> monthly right away 
-            till retirement, you will end up with:
-          </p>
-          <div className="bg-white p-4 rounded-lg border-2 border-primary-200">
-            <div className="text-2xl font-bold text-primary-700 text-center">
-              {formatCurrency(results.corpusAtRetirement)}
-            </div>
-            <p className="text-xs text-gray-600 text-center mt-1">at your retirement age of {inputs.retirementAge} years</p>
+      {/* Thumb Rule */}
+      <div className="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-lg">
+        <div className="flex items-start gap-3">
+          <Lightbulb className="w-5 h-5 text-yellow-600 mt-0.5" />
+          <div>
+            <h3 className="text-sm font-semibold text-yellow-900 mb-2">Quick Thumb Rule</h3>
+            <p className="text-sm text-yellow-800">
+              As a general rule, you should have around <span className="font-bold">25 times your annual expenses</span> saved up for retirement. 
+              For you, that&apos;s roughly <span className="font-bold text-yellow-900">{formatCurrency(results.annualExpensesAtRetirement * 25)}</span>.
+              Not too far from our calculation, eh?
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Breakdown */}
-      <div className="bg-gray-50 p-5 rounded-xl space-y-3">
-        <h3 className="font-semibold text-gray-900 mb-3">Breakdown</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-          <div>
-            <span className="text-gray-600">Years to Retirement:</span>
-            <span className="ml-2 font-medium text-gray-900">
-              {results.yearsToRetirement} years
-            </span>
-          </div>
-          <div>
-            <span className="text-gray-600">Monthly Expenses at Retirement:</span>
-            <span className="ml-2 font-medium text-gray-900">
-              {formatCurrency(inputs.retirementMonthlyExpenses)}
-            </span>
-          </div>
-          <div>
-            <span className="text-gray-600">Annual Expenses After Retirement:</span>
-            <span className="ml-2 font-medium text-gray-900">
-              {formatCurrency(results.annualExpensesAtRetirement)}
-            </span>
-          </div>
-          <div>
-            <span className="text-gray-600">One-off Annual Expenses:</span>
-            <span className="ml-2 font-medium text-gray-900">
-              {formatCurrency(inputs.oneOffAnnualExpenses)}
-            </span>
-          </div>
-          <div>
-            <span className="text-gray-600">Years in Retirement:</span>
-            <span className="ml-2 font-medium text-gray-900">
-              {inputs.lifeExpectancy - inputs.retirementAge} years
-            </span>
-          </div>
-          <div>
-            <span className="text-gray-600">Expected Return:</span>
-            <span className="ml-2 font-medium text-gray-900">
-              {inputs.expectedReturn}% (post-tax)
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Aggressive Scenario */}
+      {/* Realistic Scenario */}
       <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200">
         <div className="flex items-center gap-3 mb-3">
           <TrendingUp className="w-6 h-6 text-purple-600" />
-          <h3 className="text-xl font-bold text-purple-900">Aggressive Retirement Scenario</h3>
+          <h3 className="text-xl font-bold text-purple-900">Here&apos;s What We Think You&apos;ll Actually Need</h3>
         </div>
         <p className="text-sm text-purple-700 mb-4">
-          This scenario assumes <span className="font-semibold">+1% higher returns</span> ({inputs.expectedReturn + 1}% instead of {inputs.expectedReturn}%) 
-          and <span className="font-semibold">-1% lower inflation</span> ({Math.max(0.1, inputs.inflationRate - 1)}% instead of {inputs.inflationRate}%)
+          Based on some realistic assumptions - last 3 years average inflation (<span className="font-semibold">{AVG_INFLATION.toFixed(1)}%</span>) 
+          and a balanced portfolio return (33% each in FD, Large Cap Equity, and Long Term Debt = <span className="font-semibold">{AVG_BLENDED_RETURN.toFixed(1)}%</span>)
         </p>
         
         <div className="space-y-4">
           <div className="bg-white/50 p-4 rounded-lg">
-            <div className="text-sm font-medium text-purple-900 mb-1">Gross Corpus Required (Aggressive)</div>
+            <div className="text-sm font-medium text-purple-900 mb-1">Realistic Corpus Required</div>
             <div className="text-2xl font-bold text-purple-900">
-              {formatCurrency(aggressiveResults.grossCorpusRequired)}
+              {formatCurrency(realisticResults.grossCorpusRequired)}
             </div>
           </div>
           <div className="bg-white/50 p-4 rounded-lg">
-            <div className="text-sm font-medium text-purple-900 mb-1">Current Savings at Retirement (Aggressive)</div>
+            <div className="text-sm font-medium text-purple-900 mb-1">Your Savings at Retirement (Realistic)</div>
             <div className="text-2xl font-bold text-purple-900">
-              {formatCurrency(aggressiveResults.futureValueOfCurrentCorpus)}
+              {formatCurrency(realisticResults.futureValueOfCurrentCorpus)}
             </div>
           </div>
           <div className="bg-white/50 p-4 rounded-lg">
-            <div className="text-sm font-medium text-purple-900 mb-1">Additional Corpus Required (Aggressive)</div>
+            <div className="text-sm font-medium text-purple-900 mb-1">Additional Corpus Needed (Realistic)</div>
             <div className="text-2xl font-bold text-purple-900">
-              {formatCurrency(aggressiveResults.additionalCorpusRequired)}
+              {formatCurrency(realisticResults.additionalCorpusRequired)}
             </div>
           </div>
           <div className="bg-white/50 p-4 rounded-lg">
-            <div className="text-sm font-medium text-purple-900 mb-1">Monthly Contribution Needed (Aggressive)</div>
+            <div className="text-sm font-medium text-purple-900 mb-1">Monthly Contribution Needed (Realistic)</div>
             <div className="text-2xl font-bold text-purple-900">
-              {formatCurrency(aggressiveResults.monthlyContributionNeeded)}
+              {formatCurrency(realisticResults.monthlyContributionNeeded)}
             </div>
           </div>
         </div>

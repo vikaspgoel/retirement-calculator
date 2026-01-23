@@ -9,22 +9,33 @@ interface CalculatorFormProps {
   userName: string
 }
 
-// Last 5 years leading Mutual Fund returns (after taxes, approximate)
-const MF_RETURNS = [
-  { year: '2023', return: 18.5 },
-  { year: '2022', return: 4.2 },
-  { year: '2021', return: 24.5 },
-  { year: '2020', return: 16.2 },
-  { year: '2019', return: 12.8 },
+// 5-Year Post-Tax Returns Data
+
+// Large Cap Equity MF (post 12.5% LTCG tax on gains above 1.25L)
+const LARGE_CAP_EQUITY = [
+  { year: '2023', postTax: 14.2 },
+  { year: '2022', postTax: 3.8 },
+  { year: '2021', postTax: 21.5 },
+  { year: '2020', postTax: 13.8 },
+  { year: '2019', postTax: 10.5 },
+]
+
+// Long Term Debt MF (post 12.5% LTCG tax)
+const LONG_TERM_DEBT = [
+  { year: '2023', postTax: 6.8 },
+  { year: '2022', postTax: 4.2 },
+  { year: '2021', postTax: 5.5 },
+  { year: '2020', postTax: 8.2 },
+  { year: '2019', postTax: 7.8 },
 ]
 
 // SBI 1 Year FD Rates (last 5 years) - Post tax (30% tax assumed)
 const FD_RATES = [
-  { year: '2023', rate: 6.8, postTax: 4.76 }, // 6.8% * 0.7 = 4.76%
-  { year: '2022', rate: 5.5, postTax: 3.85 }, // 5.5% * 0.7 = 3.85%
-  { year: '2021', rate: 5.0, postTax: 3.50 }, // 5.0% * 0.7 = 3.50%
-  { year: '2020', rate: 5.4, postTax: 3.78 }, // 5.4% * 0.7 = 3.78%
-  { year: '2019', rate: 6.8, postTax: 4.76 }, // 6.8% * 0.7 = 4.76%
+  { year: '2023', postTax: 4.76 }, // 6.8% * 0.7
+  { year: '2022', postTax: 3.85 }, // 5.5% * 0.7
+  { year: '2021', postTax: 3.50 }, // 5.0% * 0.7
+  { year: '2020', postTax: 3.78 }, // 5.4% * 0.7
+  { year: '2019', postTax: 4.76 }, // 6.8% * 0.7
 ]
 
 // Last 3 years inflation data
@@ -33,6 +44,13 @@ const INFLATION_DATA = [
   { year: '2022', rate: 6.7 },
   { year: '2021', rate: 5.1 },
 ]
+
+// Calculate averages
+const AVG_LARGE_CAP = LARGE_CAP_EQUITY.reduce((sum, item) => sum + item.postTax, 0) / LARGE_CAP_EQUITY.length
+const AVG_LONG_TERM_DEBT = LONG_TERM_DEBT.reduce((sum, item) => sum + item.postTax, 0) / LONG_TERM_DEBT.length
+const AVG_FD = FD_RATES.reduce((sum, item) => sum + item.postTax, 0) / FD_RATES.length
+export const AVG_BLENDED_RETURN = (AVG_LARGE_CAP + AVG_LONG_TERM_DEBT + AVG_FD) / 3
+export const AVG_INFLATION = INFLATION_DATA.reduce((sum, item) => sum + item.rate, 0) / INFLATION_DATA.length
 
 export default function CalculatorForm({ inputs, onChange, userName }: CalculatorFormProps) {
   // Reordered: expenses and life expectancy first, then inflation and return
@@ -80,7 +98,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       format: (val: number) => (val / 100000).toFixed(1) + 'L',
-      narration: "Mention sum total of your liquid invested savings/funds",
+      narration: "Sum total of your liquid invested savings/funds - don&apos;t add value of your first own house!",
     },
     {
       id: 'retirementMonthlyExpenses' as keyof CalculatorInputs,
@@ -96,7 +114,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
     },
     {
       id: 'oneOffAnnualExpenses' as keyof CalculatorInputs,
-      label: 'Estimated One-off Annual Expenses',
+      label: 'Estimated One-off Annual Expenses After Retirement',
       value: inputs.oneOffAnnualExpenses,
       min: 0,
       max: 5000000,
@@ -104,7 +122,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       format: (val: number) => (val / 100000).toFixed(1) + 'L',
-      narration: "Vacations, medical emergencies, gifts - those unexpected expenses",
+      narration: "Vacations, medical stuff, gifts - those surprise expenses that pop up every year",
     },
     {
       id: 'lifeExpectancy' as keyof CalculatorInputs,
@@ -201,41 +219,28 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
               </p>
 
               {field.showInfo && field.id === 'expectedReturn' && (
-                <div className="mt-2 space-y-3">
-                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <div className="flex items-start gap-2 mb-2">
-                      <Info className="w-4 h-4 text-blue-600 mt-0.5" />
-                      <span className="text-xs font-medium text-blue-900">Last 5 Years MF Returns (After Tax):</span>
-                    </div>
-                    <div className="grid grid-cols-5 gap-1 text-xs">
-                      {MF_RETURNS.map((mf) => (
-                        <div key={mf.year} className="text-center">
-                          <div className="text-blue-700 font-semibold">{mf.return}%</div>
-                          <div className="text-blue-600">{mf.year}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-xs text-blue-700 mt-2">
-                      Average: {(MF_RETURNS.reduce((sum, mf) => sum + mf.return, 0) / MF_RETURNS.length).toFixed(1)}%
-                    </p>
+                <div className="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="flex items-start gap-2 mb-3">
+                    <Info className="w-4 h-4 text-blue-600 mt-0.5" />
+                    <span className="text-xs font-medium text-blue-900">5-Year Average Post-Tax Returns:</span>
                   </div>
-                  <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                    <div className="flex items-start gap-2 mb-2">
-                      <Info className="w-4 h-4 text-green-600 mt-0.5" />
-                      <span className="text-xs font-medium text-green-900">SBI 1 Year FD Rates (Post Tax - 30%):</span>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex justify-between items-center bg-white/50 p-2 rounded">
+                      <span className="text-blue-800">Large Cap Equity MF</span>
+                      <span className="font-bold text-blue-900">{AVG_LARGE_CAP.toFixed(1)}%</span>
                     </div>
-                    <div className="grid grid-cols-5 gap-1 text-xs">
-                      {FD_RATES.map((fd) => (
-                        <div key={fd.year} className="text-center">
-                          <div className="text-green-700 font-semibold">{fd.postTax}%</div>
-                          <div className="text-green-600">{fd.year}</div>
-                        </div>
-                      ))}
+                    <div className="flex justify-between items-center bg-white/50 p-2 rounded">
+                      <span className="text-blue-800">Long Term Debt MF</span>
+                      <span className="font-bold text-blue-900">{AVG_LONG_TERM_DEBT.toFixed(1)}%</span>
                     </div>
-                    <p className="text-xs text-green-700 mt-2">
-                      Average: {(FD_RATES.reduce((sum, fd) => sum + fd.postTax, 0) / FD_RATES.length).toFixed(1)}%
-                    </p>
+                    <div className="flex justify-between items-center bg-white/50 p-2 rounded">
+                      <span className="text-blue-800">FD (30% tax bracket)</span>
+                      <span className="font-bold text-blue-900">{AVG_FD.toFixed(1)}%</span>
+                    </div>
                   </div>
+                  <p className="text-xs text-blue-700 mt-3 pt-2 border-t border-blue-200">
+                    We&apos;ve pre-filled the average of all three ({AVG_BLENDED_RETURN.toFixed(1)}%) - feel free to change it based on your investment style!
+                  </p>
                 </div>
               )}
 
