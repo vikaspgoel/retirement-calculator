@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { calculateRetirementCorpus, CalculatorInputs } from '@/lib/calculator'
-import CalculatorForm, { AVG_BLENDED_RETURN } from './CalculatorForm'
+import CalculatorForm, { AVG_BLENDED_RETURN, AVG_CONSERVATIVE_RETURN } from './CalculatorForm'
 import CalculatorResults from './CalculatorResults'
 
 export default function Calculator() {
@@ -13,7 +13,7 @@ export default function Calculator() {
     retirementAge: 0,
     currentCorpus: 0,
     currentROI: parseFloat(AVG_BLENDED_RETURN.toFixed(1)),
-    expectedReturn: parseFloat(AVG_BLENDED_RETURN.toFixed(1)),
+    expectedReturn: parseFloat(AVG_CONSERVATIVE_RETURN.toFixed(1)),
     inflationRate: 5.7,
     lifeExpectancy: 85,
     retirementMonthlyExpenses: 0,
