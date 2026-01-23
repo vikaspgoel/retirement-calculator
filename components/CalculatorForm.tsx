@@ -52,6 +52,45 @@ const AVG_FD = FD_RATES.reduce((sum, item) => sum + item.postTax, 0) / FD_RATES.
 export const AVG_BLENDED_RETURN = (AVG_LARGE_CAP + AVG_LONG_TERM_DEBT + AVG_FD) / 3
 export const AVG_INFLATION = INFLATION_DATA.reduce((sum, item) => sum + item.rate, 0) / INFLATION_DATA.length
 
+// Format number with Indian comma separators (lakhs, crores)
+const formatIndianNumber = (num: number): string => {
+  if (num === 0) return '0'
+  const numStr = Math.floor(num).toString()
+  let result = ''
+  const len = numStr.length
+  
+  // Add last 3 digits
+  if (len <= 3) {
+    return numStr
+  }
+  
+  result = numStr.slice(-3)
+  let remaining = numStr.slice(0, -3)
+  
+  // Add pairs of 2 digits (for lakhs, crores, etc.)
+  while (remaining.length > 0) {
+    const chunk = remaining.slice(-2)
+    result = chunk + ',' + result
+    remaining = remaining.slice(0, -2)
+  }
+  
+  // Remove leading comma if any
+  return result.replace(/^,/, '')
+}
+
+// Format number in Indian words (thousands, lakhs, crores)
+const formatIndianWords = (num: number): string => {
+  if (num === 0) return '₹0'
+  if (num >= 10000000) {
+    return `₹${(num / 10000000).toFixed(2)} Crore`
+  } else if (num >= 100000) {
+    return `₹${(num / 100000).toFixed(2)} Lakh`
+  } else if (num >= 1000) {
+    return `₹${(num / 1000).toFixed(1)} Thousand`
+  }
+  return `₹${num}`
+}
+
 export default function CalculatorForm({ inputs, onChange, userName }: CalculatorFormProps) {
   // Reordered: expenses and life expectancy first, then inflation and return
   const inputFields = [
@@ -97,7 +136,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 10000,
       icon: DollarSign,
       prefix: '₹',
-      format: (val: number) => (val / 100000).toFixed(1) + 'L',
+      isRupee: true,
       narration: "Sum total of your liquid invested savings/funds - do not add value of your first own house!",
     },
     {
@@ -109,7 +148,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 5000,
       icon: DollarSign,
       prefix: '₹',
-      format: (val: number) => (val / 1000).toFixed(0) + 'K',
+      isRupee: true,
       narration: "Enter your expected monthly expenses at retirement year (we will account for inflation after that)",
     },
     {
@@ -121,7 +160,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 10000,
       icon: DollarSign,
       prefix: '₹',
-      format: (val: number) => (val / 100000).toFixed(1) + 'L',
+      isRupee: true,
       narration: "Vacations, medical stuff, gifts - those surprise expenses that pop up every year",
     },
     {
@@ -212,9 +251,9 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
                     {field.suffix}
                   </span>
                 )}
-                {field.format && (
+                {(field as any).isRupee && field.value > 0 && (
                   <div className="mt-1 text-xs text-gray-500">
-                    ≈ {field.format(field.value)}
+                    ₹{formatIndianNumber(field.value)} = {formatIndianWords(field.value)}
                   </div>
                 )}
               </div>
