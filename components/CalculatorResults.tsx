@@ -31,7 +31,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
           Here&apos;s Your Plan, {userName}!
         </h2>
         <p className="text-gray-600">
-          Let&apos;s see what the numbers say...
+          Let&apos;s see how much you need based on the values you put.
         </p>
       </div>
 
