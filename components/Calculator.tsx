@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { calculateRetirementCorpus, CalculatorInputs } from '@/lib/calculator'
 import CalculatorForm, { AVG_BLENDED_RETURN } from './CalculatorForm'
 import CalculatorResults from './CalculatorResults'
@@ -20,6 +20,14 @@ export default function Calculator() {
   })
   const [results, setResults] = useState<any>(null)
   const [showResults, setShowResults] = useState(false)
+  const resultsRef = useRef<HTMLDivElement>(null)
+
+  // Auto-scroll to results when they appear
+  useEffect(() => {
+    if (showResults && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [showResults])
 
   const handleNameSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -127,7 +135,7 @@ export default function Calculator() {
       </div>
 
       {showResults && results && (
-        <div className="mt-8">
+        <div ref={resultsRef} className="mt-8">
           <CalculatorResults 
             results={results} 
             userName={userName}

@@ -107,7 +107,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
     },
     {
       id: 'retirementAge' as keyof CalculatorInputs,
-      label: 'When do you want to retire?',
+      label: 'At what age you want to retire?',
       value: inputs.retirementAge,
       min: 50,
       max: 75,
