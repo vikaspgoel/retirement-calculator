@@ -120,9 +120,10 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
   const yearsToRetirement = inputs.retirementAge - inputs.currentAge
   const yearsInRetirement = inputs.lifeExpectancy - inputs.retirementAge
 
-  // User enters POST-TAX returns, so use them directly (no tax deduction)
-  const returnOnNewContributions = inputs.expectedReturn
-  const returnOnExistingCorpus = inputs.currentROI
+  // currentROI: Used for existing corpus AND SIPs till retirement
+  // expectedReturn: Used for corpus returns DURING retirement (withdrawal phase)
+  const returnTillRetirement = inputs.currentROI
+  const returnDuringRetirement = inputs.expectedReturn
 
   // User enters expenses in today's value, so we need to inflate them to retirement year
   const monthlyExpensesAtRetirement = inputs.retirementMonthlyExpenses * Math.pow(1 + inputs.inflationRate / 100, yearsToRetirement)
@@ -130,9 +131,8 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
   const annualExpensesAtRetirement = (monthlyExpensesAtRetirement * 12) + oneOffExpensesAtRetirement
 
   // Calculate real return using proper formula: (1+r)/(1+i) - 1
-  // Use currentROI for retirement phase (assumes same return during retirement)
-  const retirementReturn = returnOnExistingCorpus
-  const realReturn = ((1 + retirementReturn / 100) / (1 + inputs.inflationRate / 100)) - 1
+  // Use expectedReturn for retirement phase (return during withdrawal years)
+  const realReturn = ((1 + returnDuringRetirement / 100) / (1 + inputs.inflationRate / 100)) - 1
 
   // Calculate corpus required using present value of growing annuity (Annuity Due)
   // Annuity Due = payments at beginning of period (more realistic for retirement withdrawals)
@@ -149,17 +149,18 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
     corpusRequiredPV = annualExpensesAtRetirement * yearsInRetirement
   }
 
-  // Calculate future value of current corpus using currentROI (no tax deduction)
+  // Calculate future value of current corpus using currentROI
   const futureValueOfCurrentCorpus =
-    inputs.currentCorpus * Math.pow(1 + returnOnExistingCorpus / 100, yearsToRetirement)
+    inputs.currentCorpus * Math.pow(1 + returnTillRetirement / 100, yearsToRetirement)
   
   // Additional corpus needed beyond current savings
   const additionalCorpusRequired = Math.max(0, corpusRequiredPV - futureValueOfCurrentCorpus)
 
   // Calculate required monthly contribution based on additional corpus needed
+  // SIPs also grow at currentROI (returnTillRetirement)
   let monthlyContributionNeeded = 0
   if (additionalCorpusRequired > 0) {
-    const monthlyReturn = returnOnNewContributions / 12 / 100
+    const monthlyReturn = returnTillRetirement / 12 / 100
     const months = yearsToRetirement * 12
     monthlyContributionNeeded =
       additionalCorpusRequired /
@@ -167,8 +168,9 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
   }
 
   // Calculate total corpus at retirement
+  // Both existing corpus and SIPs grow at currentROI (returnTillRetirement)
   const futureValueOfContributions = monthlyContributionNeeded > 0 
-    ? calculateFutureValue(0, monthlyContributionNeeded, returnOnNewContributions, yearsToRetirement)
+    ? calculateFutureValue(0, monthlyContributionNeeded, returnTillRetirement, yearsToRetirement)
     : 0
   const corpusAtRetirement = futureValueOfCurrentCorpus + futureValueOfContributions
 
@@ -177,7 +179,7 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
   // Generate projections for accumulation phase
   const projections: CalculatorResult['projections'] = []
   let corpusValue = inputs.currentCorpus
-  const monthlyReturn = returnOnNewContributions / 12 / 100
+  const monthlyReturn = returnTillRetirement / 12 / 100
   let previousCorpus = inputs.currentCorpus
   const monthlyContributionForProjection = monthlyContributionNeeded > 0 ? monthlyContributionNeeded : 0
 
@@ -204,7 +206,7 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
   // Generate projections for retirement phase
   const retirementProjections: CalculatorResult['retirementProjections'] = []
   let retirementCorpus = corpusAtRetirement
-  const retirementMonthlyReturn = retirementReturn / 12 / 100
+  const retirementMonthlyReturn = returnDuringRetirement / 12 / 100
 
   for (let year = 0; year <= yearsInRetirement; year++) {
     const age = inputs.retirementAge + year

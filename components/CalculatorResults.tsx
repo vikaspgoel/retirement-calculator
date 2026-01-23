@@ -59,7 +59,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
           {formatCurrency(results.futureValueOfCurrentCorpus)}
         </div>
         <p className="text-sm text-green-700">
-          Your current savings of {formatCurrency(inputs.currentCorpus)} will grow to this amount at {inputs.currentROI}% return
+          Your current savings of {formatCurrency(inputs.currentCorpus)} will grow to this amount at {inputs.currentROI}% annual return
         </p>
       </div>
 
