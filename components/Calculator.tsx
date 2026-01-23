@@ -105,7 +105,7 @@ export default function Calculator() {
           Hey {userName}!
         </h1>
         <p className="text-gray-600">
-          Just input these numbers and we will do the rest for you.
+          Just input these numbers and we will do the rest for you. Retirement is not just about age, it is also about peace of mind.
         </p>
         <p className="text-sm text-gray-400 mt-2 italic">
           We have pre-filled certain data for your reference, feel free to edit though.

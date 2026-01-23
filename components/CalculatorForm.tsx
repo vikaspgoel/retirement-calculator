@@ -103,7 +103,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 1,
       icon: Calendar,
       suffix: 'years',
-      narration: "Remember, you are always young at heart",
+      narration: "Remember, you are always young at heart, yet, no harm in planning your retirement",
     },
     {
       id: 'retirementAge' as keyof CalculatorInputs,
@@ -137,7 +137,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       isRupee: true,
-      narration: "Sum total of your liquid invested savings/funds - do not add value of your first own house!",
+      narration: "Mention sum total of your liquid invested savings/funds - assume you will not need to withdraw anything from here",
     },
     {
       id: 'currentROI' as keyof CalculatorInputs,
@@ -148,7 +148,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 0.5,
       icon: TrendingUp,
       suffix: '%',
-      narration: "Return on your existing corpus AND new SIPs till retirement",
+      narration: "This shall be used to apply on your current corpus and new SIPs required, till retirement",
       showInfo: false,
       isPrefilled: true,
     },
@@ -185,7 +185,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 1,
       icon: Calendar,
       suffix: 'years',
-      narration: "Bryan Johnson is planning to live forever, yet, we think you should plan for 85 at least, rest is your (or God's) call. Hope you are watching your weight.",
+      narration: "Bryan Johnson is planning to live forever, yet, we think you should plan for 85 at least, rest is your (or Gods) call. Keep doing yoga",
       isPrefilled: true,
     },
     {
