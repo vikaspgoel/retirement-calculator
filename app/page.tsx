@@ -19,7 +19,7 @@ export default function Home() {
       <p className="mt-8 md:mt-10 text-gray-500 text-center text-sm sm:text-base max-w-sm leading-relaxed animate-fade-in-delay">
         Welcome to the bored room.
         <br />
-        Let&apos;s take this offline — life&apos;s waiting.
+        Let's take this offline — life's waiting.
       </p>
 
       {/* Tools Section */}

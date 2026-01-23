@@ -114,14 +114,14 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 1,
       icon: Calendar,
       suffix: 'years',
-      narration: "Dream retirement age? Let&apos;s make it happen!",
+      narration: "Dream retirement age? Let's make it happen!",
       getDynamicNarration: (value: number) => {
         const standardRetirementAge = 58
         const yearsEarly = standardRetirementAge - value
         if (yearsEarly > 0) {
           return `Wow, you will get ${yearsEarly} year${yearsEarly > 1 ? 's' : ''} of fun time away from your boss!`
         } else if (yearsEarly < 0) {
-          return `Standard retirement age in India is 58, but you&apos;re planning for ${Math.abs(yearsEarly)} year${Math.abs(yearsEarly) > 1 ? 's' : ''} later`
+          return `Standard retirement age in India is 58, but you're planning for ${Math.abs(yearsEarly)} year${Math.abs(yearsEarly) > 1 ? 's' : ''} later`
         } else {
           return "Standard retirement age in India is 58 - right on track!"
         }
@@ -129,7 +129,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
     },
     {
       id: 'currentCorpus' as keyof CalculatorInputs,
-      label: 'Current Savings/Corpus',
+      label: 'Current Corpus dedicated for retirement',
       value: inputs.currentCorpus,
       min: 0,
       max: 100000000,
@@ -141,7 +141,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
     },
     {
       id: 'currentROI' as keyof CalculatorInputs,
-      label: 'Current ROI - Applied on Existing Corpus till Retirement',
+      label: 'Current Annual Return Post Tax',
       value: inputs.currentROI,
       min: 5,
       max: 20,
@@ -154,7 +154,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
     },
     {
       id: 'retirementMonthlyExpenses' as keyof CalculatorInputs,
-      label: 'Monthly Expenses - Target Lifestyle but Today&apos;s Value',
+      label: "Monthly Expenses - Target Lifestyle but Today's Value",
       value: inputs.retirementMonthlyExpenses,
       min: 10000,
       max: 1000000,
@@ -162,11 +162,11 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       isRupee: true,
-      narration: "Enter your target monthly expenses in today&apos;s rupees. We&apos;ll adjust for inflation automatically.",
+      narration: "Enter your target monthly expenses in today's rupees. We'll adjust for inflation automatically.",
     },
     {
       id: 'oneOffAnnualExpenses' as keyof CalculatorInputs,
-      label: 'One-time Annual Expenses - Target Lifestyle but Today&apos;s Value',
+      label: "One-time Annual Expenses - Target Lifestyle but Today's Value",
       value: inputs.oneOffAnnualExpenses,
       min: 0,
       max: 5000000,
@@ -174,7 +174,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       isRupee: true,
-      narration: "Vacations, medical stuff, gifts - those surprise expenses that pop up every year (in today&apos;s value)",
+      narration: "Vacations, medical stuff, gifts - those surprise expenses that pop up every year (in today's value)",
     },
     {
       id: 'lifeExpectancy' as keyof CalculatorInputs,
@@ -296,7 +296,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
                     </div>
                   </div>
                   <p className="text-xs text-blue-700 mt-3 pt-2 border-t border-blue-200">
-                    We&apos;ve pre-filled the average of all three ({AVG_BLENDED_RETURN.toFixed(1)}%) - feel free to change it based on your investment style!
+                    We've pre-filled the average of all three ({AVG_BLENDED_RETURN.toFixed(1)}%) - feel free to change it based on your investment style!
                   </p>
                 </div>
               )}

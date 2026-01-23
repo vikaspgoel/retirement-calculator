@@ -28,10 +28,10 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
     <div className="space-y-6 mt-8 pt-6 border-t-2 border-gray-200">
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-gray-900 mb-2">
-          Here&apos;s Your Plan, {userName}!
+          Here's Your Plan, {userName}!
         </h2>
         <p className="text-gray-600">
-          Let&apos;s see how much you need based on the values you put.
+          Let's see how much you need based on the values you put.
         </p>
       </div>
 
@@ -45,7 +45,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
           {formatCurrency(results.grossCorpusRequired)}
         </div>
         <p className="text-sm text-blue-700">
-          This is the total amount you&apos;ll need at age {inputs.retirementAge} to sustain your retirement lifestyle
+          This is the total amount you'll need at age {inputs.retirementAge} to sustain your retirement lifestyle
         </p>
       </div>
 
@@ -59,7 +59,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
           {formatCurrency(results.futureValueOfCurrentCorpus)}
         </div>
         <p className="text-sm text-green-700">
-          Your current savings of {formatCurrency(inputs.currentCorpus)} will grow to this amount at {inputs.expectedReturn}% return
+          Your current savings of {formatCurrency(inputs.currentCorpus)} will grow to this amount at {inputs.currentROI}% return
         </p>
       </div>
 
@@ -99,7 +99,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
             <h3 className="text-sm font-semibold text-yellow-900 mb-2">Quick Thumb Rule</h3>
             <p className="text-sm text-yellow-800">
               As a general rule, you should have around <span className="font-bold">25 times your annual expenses</span> saved up for retirement. 
-              For you, that&apos;s roughly <span className="font-bold text-yellow-900">{formatCurrency(results.annualExpensesAtRetirement * 25)}</span>.
+              For you, that's roughly <span className="font-bold text-yellow-900">{formatCurrency(results.annualExpensesAtRetirement * 25)}</span>.
               Not too far from our calculation, eh?
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
       <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200">
         <div className="flex items-center gap-3 mb-3">
           <TrendingUp className="w-6 h-6 text-purple-600" />
-          <h3 className="text-xl font-bold text-purple-900">Here&apos;s What We Think You&apos;ll Actually Need</h3>
+          <h3 className="text-xl font-bold text-purple-900">Here's What We Think You'll Actually Need</h3>
         </div>
         <p className="text-sm text-purple-700 mb-4">
           Based on some realistic assumptions - last 3 years average inflation (<span className="font-semibold">{AVG_INFLATION.toFixed(1)}%</span>) 
@@ -164,7 +164,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
               <span className="font-bold text-green-900">{formatCurrency(results.grossCorpusRequired)}</span>.
             </p>
             <p className="text-xs text-green-700 mt-2">
-              That&apos;s a savings of{' '}
+              That's a savings of{' '}
               <span className="font-semibold">
                 {formatCurrency(results.grossCorpusRequired - calculateRetirementCorpus({
                   ...inputs,

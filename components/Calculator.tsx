@@ -57,7 +57,7 @@ export default function Calculator() {
             Hey there, looking to retire early?
           </h1>
           <p className="text-lg text-gray-700 mb-2">
-            Didn&apos;t have a good day at office? Don&apos;t worry, shit happens.
+            Didn't have a good day at office? Don't worry, shit happens.
           </p>
         </div>
         
@@ -82,16 +82,16 @@ export default function Calculator() {
             type="submit"
             className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-lg"
           >
-            Let&apos;s See How Much Corpus You Need To Quit Your Job
+            Let's See How Much Corpus You Need To Quit Your Job
           </button>
         </form>
 
         <div className="mt-6 pt-4 border-t border-gray-200 space-y-3">
           <p className="text-sm text-gray-500 italic">
-            Heads up: We don&apos;t store any of your data or information. Nope, not even in our dreams. So take screenshots if you want to remember your financial future!
+            Heads up: We don't store any of your data or information. Nope, not even in our dreams. So take screenshots if you want to remember your financial future!
           </p>
           <p className="text-sm text-gray-500 italic">
-            Pro tip: Play around with the numbers! Try different inputs, see what happens. It&apos;s free to dream big (or small, we don&apos;t judge).
+            Pro tip: Play around with the numbers! Try different inputs, see what happens. It's free to dream big (or small, we don't judge).
           </p>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function Calculator() {
           <div className="mb-4 p-4 bg-primary-50 rounded-lg border border-primary-200">
             <p className="text-primary-800 text-center">
               Hey {userName}, so you plan to retire in <span className="font-bold">{inputs.retirementAge - inputs.currentAge} years</span>. 
-              Let&apos;s see how much moolah you&apos;ll need to finally say goodbye to your alarm clock!
+              Let's see how much moolah you'll need to finally say goodbye to your alarm clock!
             </p>
           </div>
         )}
