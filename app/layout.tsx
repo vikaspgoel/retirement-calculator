@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
-import { AuthProvider } from '@/components/AuthProvider'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
 export const metadata: Metadata = {
-  title: 'Retirement Corpus Calculator',
-  description: 'Plan your retirement with Indian tax considerations',
+  title: 'BoredRoom.in | Where Corporate Dreams Go to Nap',
+  description: 'A sanctuary for survivors of endless meetings, pointless presentations, and the eternal quest for synergy.',
 }
 
 export default function RootLayout({
@@ -17,8 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
+        {children}
       </body>
     </html>
   )
