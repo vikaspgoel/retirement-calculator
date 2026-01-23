@@ -1,20 +1,15 @@
 'use client'
 
 import { CalculatorResult, CalculatorInputs, calculateAggressiveScenario, calculateRetirementCorpus } from '@/lib/calculator'
-import { TrendingUp, Target, AlertCircle, Mail, CheckCircle } from 'lucide-react'
-import { useState } from 'react'
+import { TrendingUp, Target, AlertCircle } from 'lucide-react'
 
 interface CalculatorResultsProps {
   results: CalculatorResult
   userName: string
-  email: string
   inputs: CalculatorInputs
-  onEmailChange: (email: string) => void
 }
 
-export default function CalculatorResults({ results, userName, email, inputs, onEmailChange }: CalculatorResultsProps) {
-  const [emailSent, setEmailSent] = useState(false)
-  
+export default function CalculatorResults({ results, userName, inputs }: CalculatorResultsProps) {
   const aggressiveResults = calculateAggressiveScenario(inputs)
 
   const formatCurrency = (value: number) => {
@@ -26,18 +21,6 @@ export default function CalculatorResults({ results, userName, email, inputs, on
       return `₹${(value / 1000).toFixed(1)}K`
     }
     return `₹${value.toFixed(0)}`
-  }
-
-  const handleSendEmail = () => {
-    if (!email) {
-      alert('Please enter your email address first!')
-      return
-    }
-    
-    // In a real app, this would send an email via API
-    // For now, we'll just show a confirmation
-    setEmailSent(true)
-    setTimeout(() => setEmailSent(false), 3000)
   }
 
   return (
@@ -237,48 +220,6 @@ export default function CalculatorResults({ results, userName, email, inputs, on
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Email Section */}
-      <div className="bg-blue-50 p-5 rounded-xl border-2 border-blue-200">
-        <div className="mb-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Mail className="w-5 h-5 text-blue-600" />
-            <label htmlFor="result-email" className="font-medium text-blue-900">
-              Want to receive this calculation via email?
-            </label>
-          </div>
-          <input
-            id="result-email"
-            type="email"
-            value={email}
-            onChange={(e) => onEmailChange(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-gray-900 bg-white"
-            placeholder="your.email@example.com"
-          />
-          <p className="text-xs text-blue-700 mt-1">
-            We&apos;ll send you a summary of your retirement plan
-          </p>
-        </div>
-        {email && (
-          <button
-            onClick={handleSendEmail}
-            disabled={emailSent}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          >
-            {emailSent ? (
-              <>
-                <CheckCircle className="w-4 h-4" />
-                Sent!
-              </>
-            ) : (
-              <>
-                <Mail className="w-4 h-4" />
-                Send Email
-              </>
-            )}
-          </button>
-        )}
       </div>
     </div>
   )

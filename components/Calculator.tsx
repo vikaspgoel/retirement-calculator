@@ -20,7 +20,6 @@ export default function Calculator() {
   })
   const [results, setResults] = useState<any>(null)
   const [showResults, setShowResults] = useState(false)
-  const [email, setEmail] = useState('')
 
   const handleNameSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -77,6 +76,15 @@ export default function Calculator() {
             Let&apos;s Get Started!
           </button>
         </form>
+
+        <div className="mt-6 pt-4 border-t border-gray-200 space-y-3">
+          <p className="text-sm text-gray-500 italic">
+            Heads up: We don&apos;t store any of your data or information. Nope, not even in our dreams. So take screenshots if you want to remember your financial future!
+          </p>
+          <p className="text-sm text-gray-500 italic">
+            Pro tip: Play around with the numbers! Try different inputs, see what happens. It&apos;s free to dream big (or small, we don&apos;t judge).
+          </p>
+        </div>
       </div>
     )
   }
@@ -112,9 +120,7 @@ export default function Calculator() {
           <CalculatorResults 
             results={results} 
             userName={userName}
-            email={email}
             inputs={inputs}
-            onEmailChange={setEmail}
           />
         </div>
       )}
