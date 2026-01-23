@@ -73,7 +73,7 @@ export default function Calculator() {
             type="submit"
             className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-lg"
           >
-            Let&apos;s Get Started!
+            Let&apos;s See How Much Corpus You Need To Quit Your Job
           </button>
         </form>
 
