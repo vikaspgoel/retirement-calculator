@@ -34,7 +34,7 @@ export default function Home() {
         {showTools && (
           <div className="mt-6 space-y-3">
             <Link
-              href="/calculator"
+              href="/retirement-calculator"
               className="block text-gray-300 hover:text-white transition-colors text-sm"
             >
               → Retirement Calculator
