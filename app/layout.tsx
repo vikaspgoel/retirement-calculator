@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BoredRoom.in | Where Corporate Dreams Go to Nap',
-  description: 'A sanctuary for survivors of endless meetings, pointless presentations, and the eternal quest for synergy.',
+  title: 'Retirement Corpus Calculator',
+  description: 'Plan your retirement with Indian tax considerations',
 }
 
 export default function RootLayout({
@@ -17,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
+      <body className={inter.className}>
         {children}
       </body>
     </html>
