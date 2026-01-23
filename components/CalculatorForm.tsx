@@ -98,7 +98,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       format: (val: number) => (val / 100000).toFixed(1) + 'L',
-      narration: "Sum total of your liquid invested savings/funds - don&apos;t add value of your first own house!",
+      narration: "Sum total of your liquid invested savings/funds - do not add value of your first own house!",
     },
     {
       id: 'retirementMonthlyExpenses' as keyof CalculatorInputs,
@@ -110,7 +110,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       format: (val: number) => (val / 1000).toFixed(0) + 'K',
-      narration: "Enter your expected monthly expenses at retirement year (we&apos;ll account for inflation after that)",
+      narration: "Enter your expected monthly expenses at retirement year (we will account for inflation after that)",
     },
     {
       id: 'oneOffAnnualExpenses' as keyof CalculatorInputs,
@@ -133,8 +133,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 1,
       icon: Calendar,
       suffix: 'years',
-      narration: "Bryan Johnson is planning to live forever, yet, we think you should plan for 85 at least, rest is your (or God's) call. Hope you are watching your weight.",
-      isPrefilled: true,
+      narration: "Average Indian male life expectancy is around 70 years, but let&apos;s plan for longer just in case",
     },
     {
       id: 'inflationRate' as keyof CalculatorInputs,
@@ -145,9 +144,8 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 0.1,
       icon: Percent,
       suffix: '%',
-      narration: "Yes, prices do increase inspite of government claiming otherwise. Check recent data below.",
+      narration: "Inflation - the silent wealth killer. Check recent data below",
       showInfo: true,
-      isPrefilled: true,
     },
     {
       id: 'expectedReturn' as keyof CalculatorInputs,
@@ -158,9 +156,8 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 0.5,
       icon: TrendingUp,
       suffix: '%',
-      narration: "You may win a jackpot; and Trump may ruin the world's economy. Now fill the return rate what you think is right.",
+      narration: "What return are you expecting? Check the MF and FD data below for reference",
       showInfo: true,
-      isPrefilled: true,
     },
   ]
 
@@ -201,11 +198,9 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
                       onChange(field.id, isNaN(numValue) ? 0 : numValue)
                     }
                   }}
-                  className={`w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all ${
-                    (field as any).isPrefilled 
-                      ? 'text-gray-400 bg-gray-50 border-gray-200' 
-                      : 'text-gray-900 bg-white border-gray-300'
-                  } ${field.prefix ? 'pl-8' : ''} ${field.suffix ? 'pr-16' : ''}`}
+                  className={`w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all text-gray-900 bg-white ${
+                    field.prefix ? 'pl-8' : ''
+                  } ${field.suffix ? 'pr-16' : ''}`}
                 />
                 {field.suffix && (
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">

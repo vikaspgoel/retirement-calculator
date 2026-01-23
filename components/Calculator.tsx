@@ -14,7 +14,7 @@ export default function Calculator() {
     currentCorpus: 0,
     expectedReturn: parseFloat(AVG_BLENDED_RETURN.toFixed(1)),
     inflationRate: 5.7,
-    lifeExpectancy: 85,
+    lifeExpectancy: 0,
     retirementMonthlyExpenses: 0,
     oneOffAnnualExpenses: 0,
   })
@@ -98,9 +98,6 @@ export default function Calculator() {
         <p className="text-gray-600">
           Just input these numbers and we will do the rest for you.
         </p>
-        <p className="text-sm text-gray-400 mt-2 italic">
-          We have pre-filled certain data for your reference, feel free to edit though.
-        </p>
       </div>
 
       <CalculatorForm 
@@ -122,7 +119,7 @@ export default function Calculator() {
           onClick={handleSubmit}
           className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-4 px-6 rounded-lg transition-all text-lg shadow-lg hover:shadow-xl"
         >
-          Take a Deep Breath, and Press
+          Let&apos;s See What The Numbers Say!
         </button>
       </div>
 
