@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { track } from '@vercel/analytics'
 import { calculateRetirementCorpus, CalculatorInputs } from '@/lib/calculator'
 import CalculatorForm, { AVG_BLENDED_RETURN, AVG_CONSERVATIVE_RETURN } from './CalculatorForm'
 import CalculatorResults from './CalculatorResults'
@@ -33,6 +34,7 @@ export default function Calculator() {
   const handleNameSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (userName.trim()) {
+      track('started_calculator')
       setShowCalculator(true)
     }
   }
@@ -43,6 +45,10 @@ export default function Calculator() {
   }
 
   const handleSubmit = () => {
+    track('calculated_corpus', {
+      currentAge: inputs.currentAge,
+      retirementAge: inputs.retirementAge,
+    })
     // Calculate results directly
     setResults(calculateRetirementCorpus(inputs))
     setShowResults(true)

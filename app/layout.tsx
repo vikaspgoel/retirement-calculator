@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Space_Mono, Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 
 const spaceMono = Space_Mono({ 
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${spaceMono.variable} ${inter.variable} font-sans`}>
         {children}
+        <Analytics />
       </body>
     </html>
   )
