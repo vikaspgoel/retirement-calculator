@@ -7,6 +7,8 @@ interface CalculatorFormProps {
   inputs: CalculatorInputs
   onChange: (field: keyof CalculatorInputs, value: number) => void
   userName: string
+  showHelp: boolean
+  onToggleHelp: () => void
 }
 
 // 5-Year Post-Tax Returns Data
@@ -94,7 +96,7 @@ const formatIndianWords = (num: number): string => {
   return `₹${num}`
 }
 
-export default function CalculatorForm({ inputs, onChange, userName }: CalculatorFormProps) {
+export default function CalculatorForm({ inputs, onChange, userName, showHelp, onToggleHelp }: CalculatorFormProps) {
   // Reordered: expenses and life expectancy first, then inflation and return
   const inputFields = [
     {
@@ -107,6 +109,7 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: Calendar,
       suffix: 'years',
       narration: "Remember, you are always young at heart, yet, no harm in planning your retirement",
+      helpText: "How old are you right now? No lying - this is between you and your calculator. The earlier you start planning, the chiller your future self will be.",
     },
     {
       id: 'retirementAge' as keyof CalculatorInputs,
@@ -117,14 +120,15 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 1,
       icon: Calendar,
       suffix: 'years',
-      narration: "Dream retirement age? Let's make it happen!",
+      narration: "Dream retirement age? Let us make it happen!",
+      helpText: "When do you want to quit the 9-to-5 grind? Pick the age when you want to stop working for money and start living for yourself.",
       getDynamicNarration: (value: number) => {
         const standardRetirementAge = 58
         const yearsEarly = standardRetirementAge - value
         if (yearsEarly > 0) {
           return `Wow, you will get ${yearsEarly} year${yearsEarly > 1 ? 's' : ''} of fun time away from your boss!`
         } else if (yearsEarly < 0) {
-          return `Standard retirement age in India is 58, but you're planning for ${Math.abs(yearsEarly)} year${Math.abs(yearsEarly) > 1 ? 's' : ''} later`
+          return `Standard retirement age in India is 58, but you are planning for ${Math.abs(yearsEarly)} year${Math.abs(yearsEarly) > 1 ? 's' : ''} later`
         } else {
           return "Standard retirement age in India is 58 - right on track!"
         }
@@ -132,15 +136,16 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
     },
     {
       id: 'currentCorpus' as keyof CalculatorInputs,
-      label: 'Current Corpus dedicated for retirement',
+      label: 'Current Savings for Retirement',
       value: inputs.currentCorpus,
       min: 0,
-      max: 100000000,
+      max: 10000000000,
       step: 10000,
       icon: DollarSign,
       prefix: '₹',
       isRupee: true,
-      narration: "Mention sum total of your liquid invested savings/funds - assume you will not need to withdraw anything from here",
+      narration: "Total of your savings, FDs, mutual funds, stocks - anything you can convert to cash",
+      helpText: "How much money have you saved so far? Add up your savings, FDs, mutual funds, stocks - anything you can convert to cash. Do not include your house or car.",
     },
     {
       id: 'currentROI' as keyof CalculatorInputs,
@@ -151,13 +156,14 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 0.5,
       icon: TrendingUp,
       suffix: '%',
-      narration: "This shall be used to apply on your current corpus and new SIPs required, till retirement",
+      narration: "How much your money grows each year - we have pre-filled a realistic number",
+      helpText: "This is how much your money grows each year (after tax). Think of it like interest, but better. We have pre-filled a realistic number based on a mix of investments.",
       showInfo: false,
       isPrefilled: true,
     },
     {
       id: 'retirementMonthlyExpenses' as keyof CalculatorInputs,
-      label: "Monthly Expenses - Target Lifestyle but Today's Value",
+      label: "Monthly Expenses (in Today's Value)",
       value: inputs.retirementMonthlyExpenses,
       min: 10000,
       max: 1000000,
@@ -165,11 +171,12 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       isRupee: true,
-      narration: "Enter your target monthly expenses in today's rupees. We'll adjust for inflation automatically.",
+      narration: "Your target monthly spend in retirement - we will adjust for future prices",
+      helpText: "How much do you spend per month right now? Rent, food, Netflix, chai - everything. Want a fancier retirement? Add more. We will adjust for future prices automatically.",
     },
     {
       id: 'oneOffAnnualExpenses' as keyof CalculatorInputs,
-      label: "One-time Annual Expenses - Target Lifestyle but Today's Value",
+      label: "Yearly Big Expenses (in Today's Value)",
       value: inputs.oneOffAnnualExpenses,
       min: 0,
       max: 5000000,
@@ -177,7 +184,8 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       icon: DollarSign,
       prefix: '₹',
       isRupee: true,
-      narration: "Vacations, medical stuff, gifts - those surprise expenses that pop up every year (in today's value)",
+      narration: "Vacations, medical stuff, gifts - those yearly expenses that pop up",
+      helpText: "Big yearly spends that do not happen every month - like that Goa trip, new phone, family weddings, or random medical bills. Guess a yearly total.",
     },
     {
       id: 'lifeExpectancy' as keyof CalculatorInputs,
@@ -188,7 +196,8 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 1,
       icon: Calendar,
       suffix: 'years',
-      narration: "Bryan Johnson is planning to live forever, yet, we think you should plan for 85 at least, rest is your (or Gods) call. Keep doing yoga",
+      narration: "Plan for at least 85 - better to have extra than run out. Keep doing yoga!",
+      helpText: "How long do you think you will live? Nobody knows, but plan for at least 85. Better to have extra money than run out at 80. Eat your veggies.",
       isPrefilled: true,
     },
     {
@@ -200,7 +209,8 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 0.1,
       icon: Percent,
       suffix: '%',
-      narration: "Yes, prices do increase inspite of government claiming otherwise. Check recent data below.",
+      narration: "Prices go up every year - we have pre-filled based on recent data",
+      helpText: "Inflation means things get pricier every year. That 100 rupee meal today might cost 200 in 10 years. We have pre-filled based on recent data.",
       showInfo: true,
       isPrefilled: true,
     },
@@ -213,7 +223,8 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
       step: 0.5,
       icon: TrendingUp,
       suffix: '%',
-      narration: "Return your corpus will earn after retirement (usually lower as investments become conservative)",
+      narration: "After retirement, your money grows slower (safer investments)",
+      helpText: "After you retire, your money still grows - just slower because you invest more safely (less stocks, more FDs). We have pre-filled a conservative number.",
       showInfo: true,
       isPrefilled: true,
     },
@@ -221,6 +232,24 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
 
   return (
     <div className="space-y-6">
+      {/* Help Toggle */}
+      <div className="flex items-center justify-end gap-3 pb-2 border-b border-gray-100">
+        <span className="text-sm text-gray-500">I am not good with numbers, translate please</span>
+        <button
+          type="button"
+          onClick={onToggleHelp}
+          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+            showHelp ? 'bg-primary-600' : 'bg-gray-300'
+          }`}
+        >
+          <span
+            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform shadow ${
+              showHelp ? 'translate-x-6' : 'translate-x-1'
+            }`}
+          />
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {inputFields.map((field) => {
           const Icon = field.icon
@@ -256,10 +285,10 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
                       onChange(field.id, isNaN(numValue) ? 0 : numValue)
                     }
                   }}
-                  className={`w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all ${
+                  className={`w-full px-4 py-3 border-2 rounded-xl shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-400 focus:shadow-md outline-none transition-all ${
                     (field as any).isPrefilled 
-                      ? 'text-gray-400 bg-gray-50 border-gray-200' 
-                      : 'text-gray-900 bg-white border-gray-300'
+                      ? 'text-gray-500 bg-gray-50/50 border-gray-200' 
+                      : 'text-gray-900 bg-white border-gray-200 hover:border-gray-300'
                   } ${field.prefix ? 'pl-8' : ''} ${field.suffix ? 'pr-16' : ''}`}
                 />
                 {field.suffix && (
@@ -274,6 +303,16 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
                 )}
               </div>
               
+              {/* Help text - shown when toggle is ON */}
+              {showHelp && (field as any).helpText && (
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-xs text-amber-800">
+                    {(field as any).helpText}
+                  </p>
+                </div>
+              )}
+              
+              {/* Dynamic narration - always shown */}
               <p className="text-xs text-gray-400 italic">
                 {field.getDynamicNarration ? field.getDynamicNarration(field.value) : field.narration}
               </p>
@@ -298,9 +337,6 @@ export default function CalculatorForm({ inputs, onChange, userName }: Calculato
                       <span className="font-bold text-blue-900">{AVG_FD.toFixed(1)}%</span>
                     </div>
                   </div>
-                  <p className="text-xs text-blue-700 mt-3 pt-2 border-t border-blue-200">
-                    We've pre-filled the average of all three ({AVG_BLENDED_RETURN.toFixed(1)}%) - feel free to change it based on your investment style!
-                  </p>
                 </div>
               )}
 

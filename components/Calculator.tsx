@@ -22,6 +22,7 @@ export default function Calculator() {
   })
   const [results, setResults] = useState<any>(null)
   const [showResults, setShowResults] = useState(false)
+  const [showHelp, setShowHelp] = useState(false)
   const resultsRef = useRef<HTMLDivElement>(null)
 
   // Auto-scroll to results when they appear
@@ -63,7 +64,10 @@ export default function Calculator() {
             Hey there, looking to retire early?
           </h1>
           <p className="text-lg text-gray-700 mb-2">
-            Didn't have a good day at office? Don't worry, shit happens.
+            Did not have a good day at office? Do not worry, shit happens.
+          </p>
+          <p className="text-base text-gray-600 mt-4">
+            This calculator helps you figure out how much money you need to retire comfortably. Answer a few simple questions about your age, savings, and lifestyle - we will do all the boring math for you.
           </p>
         </div>
         
@@ -94,10 +98,10 @@ export default function Calculator() {
 
         <div className="mt-6 pt-4 border-t border-gray-200 space-y-3">
           <p className="text-sm text-gray-500 italic">
-            Heads up: We don't store any of your data or information. Nope, not even in our dreams. So take screenshots if you want to remember your financial future!
+            Heads up: We do not store any of your data or information. Nope, not even in our dreams. So take screenshots if you want to remember your financial future!
           </p>
           <p className="text-sm text-gray-500 italic">
-            Pro tip: Play around with the numbers! Try different inputs, see what happens. It's free to dream big (or small, we don't judge).
+            Pro tip: Play around with the numbers! Try different inputs, see what happens. It is free to dream big (or small, we do not judge).
           </p>
         </div>
       </div>
@@ -122,6 +126,8 @@ export default function Calculator() {
         inputs={inputs} 
         onChange={handleInputChange}
         userName={userName}
+        showHelp={showHelp}
+        onToggleHelp={() => setShowHelp(!showHelp)}
       />
 
       <div className="mt-8 pt-6 border-t border-gray-200">
@@ -129,7 +135,7 @@ export default function Calculator() {
           <div className="mb-4 p-4 bg-primary-50 rounded-lg border border-primary-200">
             <p className="text-primary-800 text-center">
               Hey {userName}, so you plan to retire in <span className="font-bold">{inputs.retirementAge - inputs.currentAge} years</span>. 
-              Let's see how much moolah you'll need to finally say goodbye to your alarm clock!
+              Let us see how much moolah you will need to finally say goodbye to your alarm clock!
             </p>
           </div>
         )}

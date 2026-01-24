@@ -1,7 +1,7 @@
 'use client'
 
 import { CalculatorResult, CalculatorInputs, calculateRealisticScenario, calculateRetirementCorpus } from '@/lib/calculator'
-import { TrendingUp, Target, AlertCircle, Lightbulb } from 'lucide-react'
+import { TrendingUp, Target, AlertCircle, Lightbulb, Zap } from 'lucide-react'
 import { AVG_BLENDED_RETURN, AVG_INFLATION } from './CalculatorForm'
 
 interface CalculatorResultsProps {
@@ -28,10 +28,10 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
     <div className="space-y-6 mt-8 pt-6 border-t-2 border-gray-200">
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-gray-900 mb-2">
-          Here's Your Plan, {userName}!
+          Here is Your Plan, {userName}!
         </h2>
         <p className="text-gray-600">
-          Let's see how much you need based on the values you put.
+          Let us see how much you need based on the values you put.
         </p>
       </div>
 
@@ -45,7 +45,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
           {formatCurrency(results.grossCorpusRequired)}
         </div>
         <p className="text-sm text-blue-700">
-          This is the total amount you'll need at age {inputs.retirementAge} to sustain your retirement lifestyle
+          This is the total amount you will need at age {inputs.retirementAge} to sustain your retirement lifestyle
         </p>
       </div>
 
@@ -99,7 +99,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
             <h3 className="text-sm font-semibold text-yellow-900 mb-2">Quick Thumb Rule</h3>
             <p className="text-sm text-yellow-800">
               As a general rule, you should have around <span className="font-bold">25 times your annual expenses</span> saved up for retirement. 
-              For you, that's roughly <span className="font-bold text-yellow-900">{formatCurrency(results.annualExpensesAtRetirement * 25)}</span>.
+              For you, that is roughly <span className="font-bold text-yellow-900">{formatCurrency(results.annualExpensesAtRetirement * 25)}</span>.
               Not too far from our calculation, eh?
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
       <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200">
         <div className="flex items-center gap-3 mb-3">
           <TrendingUp className="w-6 h-6 text-purple-600" />
-          <h3 className="text-xl font-bold text-purple-900">Here's What We Think You'll Actually Need</h3>
+          <h3 className="text-xl font-bold text-purple-900">Here is What We Think You Will Actually Need</h3>
         </div>
         <p className="text-sm text-purple-700 mb-4">
           Based on some realistic assumptions - last 3 years average inflation (<span className="font-semibold">{AVG_INFLATION.toFixed(1)}%</span>) 
@@ -164,7 +164,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
               <span className="font-bold text-green-900">{formatCurrency(results.grossCorpusRequired)}</span>.
             </p>
             <p className="text-xs text-green-700 mt-2">
-              That's a savings of{' '}
+              That is a savings of{' '}
               <span className="font-semibold">
                 {formatCurrency(results.grossCorpusRequired - calculateRetirementCorpus({
                   ...inputs,
@@ -173,6 +173,142 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
               </span>{' '}
               in your retirement corpus!
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Power & Perils of Compounding */}
+      <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border-2 border-indigo-200">
+        <div className="flex items-center gap-3 mb-4">
+          <Zap className="w-6 h-6 text-indigo-600" />
+          <h3 className="text-xl font-bold text-indigo-900">The Magic (and Horror) of Compounding</h3>
+        </div>
+        <p className="text-sm text-indigo-700 mb-5">
+          Numbers do not lie. Here is what compounding does to your money (and expenses) over time:
+        </p>
+        
+        <div className="space-y-4">
+          {/* Inflation Reality Check */}
+          <div className="bg-white/60 p-4 rounded-lg border border-indigo-200">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">😱</span>
+              <div>
+                <h4 className="font-semibold text-indigo-900 mb-1">Inflation Reality Check</h4>
+                <p className="text-sm text-indigo-800">
+                  Your <span className="font-bold">{formatCurrency(inputs.retirementMonthlyExpenses)}</span> monthly expense today 
+                  will become <span className="font-bold text-red-600">{formatCurrency(results.monthlyExpensesAtRetirement)}</span> when you retire. 
+                  And you thought {inputs.inflationRate}% inflation is nothing!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Coffee Math */}
+          <div className="bg-white/60 p-4 rounded-lg border border-indigo-200">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">☕</span>
+              <div>
+                <h4 className="font-semibold text-indigo-900 mb-1">The Daily Coffee Tax</h4>
+                <p className="text-sm text-indigo-800">
+                  That ₹200 daily coffee (or chai + samosa)? If invested instead at {inputs.currentROI}% for {results.yearsToRetirement} years, 
+                  it would become <span className="font-bold text-green-600">
+                    {formatCurrency(200 * 30 * 12 * ((Math.pow(1 + inputs.currentROI/100, results.yearsToRetirement) - 1) / (inputs.currentROI/100)) / 12)}
+                  </span>. 
+                  Your retirement is literally being sipped away!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Early Bird Advantage */}
+          {results.yearsToRetirement > 5 && (
+            <div className="bg-white/60 p-4 rounded-lg border border-indigo-200">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">🐦</span>
+                <div>
+                  <h4 className="font-semibold text-indigo-900 mb-1">The Early Bird Advantage</h4>
+                  <p className="text-sm text-indigo-800">
+                    If you had started 5 years earlier, you would need only{' '}
+                    <span className="font-bold text-green-600">
+                      {formatCurrency(
+                        results.additionalCorpusRequired / 
+                        ((Math.pow(1 + inputs.currentROI/12/100, (results.yearsToRetirement + 5) * 12) - 1) / (inputs.currentROI/12/100))
+                      )}
+                    </span>/month instead of{' '}
+                    <span className="font-bold">{formatCurrency(results.monthlyContributionNeeded)}</span>/month. 
+                    Time is literally money!
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Delay Penalty */}
+          <div className="bg-white/60 p-4 rounded-lg border border-indigo-200">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">⏰</span>
+              <div>
+                <h4 className="font-semibold text-indigo-900 mb-1">The Procrastination Penalty</h4>
+                <p className="text-sm text-indigo-800">
+                  Waiting just 1 more year to start? You will need{' '}
+                  <span className="font-bold text-red-600">
+                    {formatCurrency(
+                      results.additionalCorpusRequired / 
+                      ((Math.pow(1 + inputs.currentROI/12/100, (results.yearsToRetirement - 1) * 12) - 1) / (inputs.currentROI/12/100))
+                    )}
+                  </span>/month - that is{' '}
+                  <span className="font-bold text-red-600">
+                    {formatCurrency(
+                      (results.additionalCorpusRequired / 
+                      ((Math.pow(1 + inputs.currentROI/12/100, (results.yearsToRetirement - 1) * 12) - 1) / (inputs.currentROI/12/100))) - 
+                      results.monthlyContributionNeeded
+                    )}
+                  </span> extra every single month. Start today!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Small Savings Magic */}
+          <div className="bg-white/60 p-4 rounded-lg border border-indigo-200">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">✨</span>
+              <div>
+                <h4 className="font-semibold text-indigo-900 mb-1">Small Savings, Big Magic</h4>
+                <p className="text-sm text-indigo-800">
+                  Every <span className="font-bold">₹1,000</span> you save today becomes{' '}
+                  <span className="font-bold text-green-600">
+                    {formatCurrency(1000 * Math.pow(1 + inputs.currentROI/100, results.yearsToRetirement))}
+                  </span> at retirement. 
+                  Every <span className="font-bold">₹10,000</span> becomes{' '}
+                  <span className="font-bold text-green-600">
+                    {formatCurrency(10000 * Math.pow(1 + inputs.currentROI/100, results.yearsToRetirement))}
+                  </span>. 
+                  Small drops make an ocean!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* The Real Cost of Lifestyle Inflation */}
+          <div className="bg-white/60 p-4 rounded-lg border border-indigo-200">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">📱</span>
+              <div>
+                <h4 className="font-semibold text-indigo-900 mb-1">The Real Cost of That Upgrade</h4>
+                <p className="text-sm text-indigo-800">
+                  That extra ₹10,000/month lifestyle upgrade? It does not just cost ₹10,000. 
+                  It adds <span className="font-bold text-red-600">
+                    {formatCurrency(
+                      calculateRetirementCorpus({
+                        ...inputs,
+                        retirementMonthlyExpenses: inputs.retirementMonthlyExpenses + 10000,
+                      }).grossCorpusRequired - results.grossCorpusRequired
+                    )}
+                  </span> to your required retirement corpus. Think twice before upgrading!
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
