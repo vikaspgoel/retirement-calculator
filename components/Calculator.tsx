@@ -59,14 +59,14 @@ export default function Calculator() {
   if (!showCalculator) {
     return (
       <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 max-w-2xl mx-auto">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+        <div className="mb-6">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 text-center">
             Hey there, looking to retire early?
           </h1>
-          <p className="text-lg text-gray-700 mb-2">
+          <p className="text-lg text-gray-700 mb-2 text-center">
             Did not have a good day at office? Do not worry, shit happens.
           </p>
-          <p className="text-base text-gray-600 mt-4">
+          <p className="text-sm text-gray-500 mt-4 text-left italic">
             This calculator helps you figure out how much money you need to retire comfortably. Answer a few simple questions about your age, savings, and lifestyle - we will do all the boring math for you.
           </p>
         </div>

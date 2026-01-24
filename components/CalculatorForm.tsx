@@ -276,6 +276,7 @@ export default function CalculatorForm({ inputs, onChange, userName, showHelp, o
                   max={field.max}
                   step={field.step}
                   value={field.value === 0 ? '' : field.value}
+                  placeholder={(field as any).isPrefilled ? 'you can change' : ''}
                   onChange={(e) => {
                     const value = e.target.value
                     if (value === '' || value === null || value === undefined) {
@@ -287,7 +288,7 @@ export default function CalculatorForm({ inputs, onChange, userName, showHelp, o
                   }}
                   className={`w-full px-4 py-3 border-2 rounded-xl shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-400 focus:shadow-md outline-none transition-all ${
                     (field as any).isPrefilled 
-                      ? 'text-gray-500 bg-gray-50/50 border-gray-200' 
+                      ? 'text-gray-400 italic bg-gray-50/50 border-gray-200 placeholder:text-gray-300 placeholder:text-xs' 
                       : 'text-gray-900 bg-white border-gray-200 hover:border-gray-300'
                   } ${field.prefix ? 'pl-8' : ''} ${field.suffix ? 'pr-16' : ''}`}
                 />
@@ -313,7 +314,7 @@ export default function CalculatorForm({ inputs, onChange, userName, showHelp, o
               )}
               
               {/* Dynamic narration - always shown */}
-              <p className="text-xs text-gray-400 italic">
+              <p className="text-xs text-gray-500 italic">
                 {field.getDynamicNarration ? field.getDynamicNarration(field.value) : field.narration}
               </p>
 
