@@ -52,6 +52,9 @@ export default function Home() {
               <Link href="/retirement-calculator" className="block text-gray-200 hover:text-white text-sm sm:text-base">
                 → Retirement Calculator
               </Link>
+              <Link href="/gita-and-me" className="block text-gray-200 hover:text-white text-sm sm:text-base">
+                → Gita and me
+              </Link>
               <p className="text-gray-400 text-xs sm:text-sm italic">
                 More tools coming up
               </p>
