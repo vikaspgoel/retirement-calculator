@@ -35,8 +35,47 @@ html, body {
   opacity: 0;
 }
 
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes border-dance {
+  0%, 100% {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .btn-pulse {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .btn-border-animate {
+    animation: border-dance 3s ease-in-out infinite;
+  }
+  
+  .btn-float {
+    animation: subtle-float 3s ease-in-out infinite;
   }
 }

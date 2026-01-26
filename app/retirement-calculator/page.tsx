@@ -4,6 +4,10 @@ import Link from 'next/link'
 export const metadata = {
   title: 'Retirement Calculator | Bored Room',
   description: 'Calculate how much you need to retire and finally escape the bored room.',
+  openGraph: {
+    title: 'Retirement Calculator | Bored Room',
+    description: 'Calculate how much you need to retire and finally escape the bored room.',
+  },
 }
 
 export default function CalculatorPage() {

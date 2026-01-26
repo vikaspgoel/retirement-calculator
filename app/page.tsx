@@ -20,8 +20,8 @@ export default function Home() {
         {/* Image */}
         <div className="mt-4 sm:mt-6 w-56 sm:w-72 md:w-80 lg:w-96">
           <Image
-            src="/reading-sketch-v2.png"
-            alt="Relaxing with cat"
+            src="/lounging-sketch.png"
+            alt="Man and cat"
             width={500}
             height={400}
             className="w-full h-auto"
@@ -30,20 +30,17 @@ export default function Home() {
         </div>
         
         {/* Text - more visible */}
-        <div className="mt-4 sm:mt-6 text-center space-y-2">
+        <div className="mt-4 sm:mt-6 text-center">
           <p className="text-gray-300 text-sm sm:text-base">
-            Welcome to the bored room. We do nothing here.
-          </p>
-          <p className="text-gray-400 text-xs sm:text-sm italic">
-            Let us take this offline — life is waiting.
+            welcome to the bored room - where doing nothing isn't a bug, it's a feature.
           </p>
         </div>
         
-        {/* Tools - Pill style */}
+        {/* Tools - Minimalistic but attention-grabbing */}
         <div className="mt-6 sm:mt-8 text-center">
           <button
             onClick={() => setShowTools(!showTools)}
-            className="text-black bg-gray-300 hover:bg-white text-sm sm:text-base font-semibold transition-all px-8 py-3 rounded-full"
+            className="text-white bg-transparent border-2 border-white/40 hover:bg-white hover:text-black text-sm sm:text-base font-medium transition-all duration-300 px-8 py-3 rounded-full btn-border-animate"
           >
             Tools for Life
           </button>
@@ -51,6 +48,9 @@ export default function Home() {
             <div className="mt-4 space-y-2">
               <Link href="/retirement-calculator" className="block text-gray-200 hover:text-white text-sm sm:text-base">
                 → Retirement Calculator
+              </Link>
+              <Link href="/gita-and-me" className="block text-gray-200 hover:text-white text-sm sm:text-base">
+                → Gita and me
               </Link>
               <p className="text-gray-400 text-xs sm:text-sm italic">
                 More tools coming up
