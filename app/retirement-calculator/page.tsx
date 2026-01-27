@@ -2,8 +2,8 @@ import Calculator from '@/components/Calculator'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Retirement Calculator | Bored Room',
-  description: 'Calculate how much you need to retire and finally escape the bored room.',
+  title: 'Retirement Calculator | Know Your Retirement Readiness',
+  description: 'Retirement planning made simple — know your corpus needs and readiness based on your goals and inputs.',
   keywords: [
     'retirement calculator',
     'financial independence',
@@ -14,8 +14,8 @@ export const metadata = {
     'financial planning'
   ],
   openGraph: {
-    title: 'Retirement Calculator | Bored Room',
-    description: 'Calculate how much you need to retire and finally escape the bored room.',
+    title: 'Retirement Calculator | Know Your Retirement Readiness',
+    description: 'Retirement planning made simple — know your corpus needs and readiness based on your goals and inputs.',
   },
 }
 
