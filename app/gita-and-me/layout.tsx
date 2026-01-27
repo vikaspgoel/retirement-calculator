@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Gita and Me | Wisdom for Your State of Mind',
-  description: 'Discover contextual Bhagavad Gita wisdom based on your current state of mind.',
+  title: 'Gita and Me | Gita Wisdom for Your Life Moments',
+  description: 'Engage with Bhagavad Gita insights that mirror your inner state — find meaning, equanimity, and direction.',
   keywords: [
     'bhagavad gita',
     'gita wisdom',
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     'daily inspiration'
   ],
   openGraph: {
-    title: 'Gita and Me | Wisdom for Your State of Mind',
-    description: 'Discover contextual Bhagavad Gita wisdom based on your current state of mind.',
+    title: 'Gita and Me | Gita Wisdom for Your Life Moments',
+    description: 'Engage with Bhagavad Gita insights that mirror your inner state — find meaning, equanimity, and direction.',
   },
 }
 
