@@ -15,8 +15,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Bored Room | Where Meetings Go to Die',
-  description: 'Not your average board room. Welcome to the Bored Room - celebrating the art of surviving corporate meetings.',
+  title: 'bored room | we are busy, doing nothing',
+  description: "where doing nothing isn't a bug, it's a feature.",
   keywords: ['bored room', 'office humor', 'meetings', 'corporate satire'],
 }
 

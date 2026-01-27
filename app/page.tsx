@@ -31,11 +31,8 @@ export default function Home() {
         
         {/* Text - more visible */}
         <div className="mt-4 sm:mt-6 text-center space-y-2">
-          <p className="text-gray-300 text-sm sm:text-base">
-            Welcome to the bored room. We do nothing here.
-          </p>
-          <p className="text-gray-400 text-xs sm:text-sm italic">
-            Let us take this offline — life is waiting.
+          <p className="text-gray-300 text-sm sm:text-base italic">
+            "Doing nothing is very hard to do, you never know when you're finished."
           </p>
         </div>
         
