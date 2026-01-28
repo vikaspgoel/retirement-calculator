@@ -8,13 +8,13 @@ export default function Home() {
   const [showTools, setShowTools] = useState(false)
 
   return (
-    <main className="h-screen bg-[#FDFCFB] overflow-hidden">
+    <main className="h-screen bg-black overflow-hidden">
       <div className="h-full flex flex-col justify-center items-center px-4 py-6">
-        {/* Title - using calm colors */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-center">
-          <span className="text-[#A6998A]">bored</span>
-          <span className="text-[#D1C7BC]">room</span>
-          <span className="text-[#4A443F]">.in</span>
+        {/* Title - brighter colors, larger font */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide text-center">
+          <span style={{ color: '#a8a29e' }}>bored</span>
+          <span className="text-gray-400">room</span>
+          <span className="text-white">.in</span>
         </h1>
         
         {/* Image */}
@@ -24,38 +24,35 @@ export default function Home() {
             alt="Relaxing with cat"
             width={500}
             height={400}
-            className="w-full h-auto opacity-90"
+            className="w-full h-auto"
             priority
           />
         </div>
         
-        {/* Text - calm palette */}
+        {/* Text - more visible */}
         <div className="mt-4 sm:mt-6 text-center space-y-2">
-          <p className="text-[#6D665E] text-sm sm:text-base font-light">
-            Welcome to the bored room. We do nothing here.
-          </p>
-          <p className="text-[#A6998A] text-xs sm:text-sm italic font-light">
-            Let us take this offline — life is waiting.
+          <p className="text-gray-300 text-sm sm:text-base italic font-mono">
+            "Doing nothing is very hard to do, you never know when you're finished."
           </p>
         </div>
         
-        {/* Tools - Calm button style */}
+        {/* Tools - Pill style (Original) */}
         <div className="mt-6 sm:mt-8 text-center">
           <button
             onClick={() => setShowTools(!showTools)}
-            className="text-white bg-[#4A443F] hover:bg-[#3D3834] text-sm sm:text-base font-medium transition-all px-10 py-3.5 rounded-full shadow-sm"
+            className="text-black bg-gray-300 hover:bg-white text-sm sm:text-base font-semibold transition-all px-8 py-3 rounded-full"
           >
             Tools for Life
           </button>
           {showTools && (
-            <div className="mt-6 space-y-3 animate-fade-in">
-              <Link href="/retirement-calculator" className="block text-[#6D665E] hover:text-[#4A443F] text-sm sm:text-base transition-colors">
+            <div className="mt-4 space-y-2">
+              <Link href="/retirement-calculator" className="block text-gray-200 hover:text-white text-sm sm:text-base">
                 → Retirement Calculator
               </Link>
-              <Link href="/gita-and-me" className="block text-[#6D665E] hover:text-[#4A443F] text-sm sm:text-base transition-colors">
+              <Link href="/gita-and-me" className="block text-gray-200 hover:text-white text-sm sm:text-base">
                 → Gita and me
               </Link>
-              <p className="text-[#D1C7BC] text-[10px] uppercase tracking-widest mt-4">
+              <p className="text-gray-400 text-xs sm:text-sm italic">
                 More tools coming up
               </p>
             </div>
