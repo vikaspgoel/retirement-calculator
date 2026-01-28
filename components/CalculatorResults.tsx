@@ -119,7 +119,7 @@ export default function CalculatorResults({ results, userName, inputs }: Calcula
             Here is What We Think You Will Actually Need
           </h2>
           <p className="text-[#D1C7BC] mb-6 leading-relaxed font-light text-center">
-            Based on realistic assumptions — Inflation (5.7%), Returns till retirement (9%) and Returns after retirement (7.8%).
+            Based on realistic assumptions — Inflation (5.7%), Returns till retirement (9%), Returns after retirement (7.8%) and Life expectancy (85 years).
           </p>
         </div>
         
