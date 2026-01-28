@@ -252,16 +252,17 @@ export function calculateRetirementCorpus(inputs: CalculatorInputs): CalculatorR
 export function calculateRealisticScenario(
   inputs: CalculatorInputs,
   avgInflation: number,
-  avgBlendedReturn: number
+  avgBlendedReturn: number,
+  avgConservativeReturn: number
 ): CalculatorResult {
   const realisticInputs: CalculatorInputs = {
     currentAge: inputs.currentAge,
     retirementAge: inputs.retirementAge,
     currentCorpus: inputs.currentCorpus,
-    currentROI: inputs.currentROI,
-    expectedReturn: avgBlendedReturn,
+    currentROI: avgBlendedReturn, // 9% till retirement
+    expectedReturn: avgConservativeReturn, // 7.8% after retirement
     inflationRate: avgInflation,
-    lifeExpectancy: inputs.lifeExpectancy,
+    lifeExpectancy: 85, // Fixed at 85 as per user request
     retirementMonthlyExpenses: inputs.retirementMonthlyExpenses,
     oneOffAnnualExpenses: inputs.oneOffAnnualExpenses,
   }

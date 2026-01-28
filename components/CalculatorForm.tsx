@@ -51,11 +51,11 @@ const INFLATION_DATA = [
 const AVG_LARGE_CAP = LARGE_CAP_EQUITY.reduce((sum, item) => sum + item.postTax, 0) / LARGE_CAP_EQUITY.length
 const AVG_LONG_TERM_DEBT = LONG_TERM_DEBT.reduce((sum, item) => sum + item.postTax, 0) / LONG_TERM_DEBT.length
 const AVG_FD = FD_RATES.reduce((sum, item) => sum + item.postTax, 0) / FD_RATES.length
-// Weighted allocation for pre-retirement: 60% Large Cap Equity, 30% Debt, 10% FD
-export const AVG_BLENDED_RETURN = (AVG_LARGE_CAP * 0.60) + (AVG_LONG_TERM_DEBT * 0.30) + (AVG_FD * 0.10)
-// Conservative allocation for during retirement: 33% each (more balanced)
-export const AVG_CONSERVATIVE_RETURN = (AVG_LARGE_CAP + AVG_LONG_TERM_DEBT + AVG_FD) / 3
-export const AVG_INFLATION = INFLATION_DATA.reduce((sum, item) => sum + item.rate, 0) / INFLATION_DATA.length
+// Weighted allocation for pre-retirement: 9.0% (Revised)
+export const AVG_BLENDED_RETURN = 9.0
+// Conservative allocation for during retirement: 7.8% (Revised)
+export const AVG_CONSERVATIVE_RETURN = 7.8
+export const AVG_INFLATION = 5.7
 
 // Format number with Indian comma separators (lakhs, crores)
 const formatIndianNumber = (num: number): string => {
@@ -231,15 +231,15 @@ export default function CalculatorForm({ inputs, onChange, userName, showHelp, o
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Help Toggle */}
-      <div className="flex items-center justify-end gap-3 pb-2 border-b border-gray-100">
-        <span className="text-sm text-gray-500">I am not good with numbers, translate please</span>
+      <div className="flex items-center justify-end gap-3 pb-4 border-b border-[#F3EFE9]">
+        <span className="text-sm text-[#8B8178]">I am not good with numbers, translate please</span>
         <button
           type="button"
           onClick={onToggleHelp}
           className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-            showHelp ? 'bg-primary-600' : 'bg-gray-300'
+            showHelp ? 'bg-[#4A443F]' : 'bg-[#D1C7BC]'
           }`}
         >
           <span
@@ -250,22 +250,22 @@ export default function CalculatorForm({ inputs, onChange, userName, showHelp, o
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {inputFields.map((field) => {
           const Icon = field.icon
           return (
-            <div key={field.id} className="space-y-2">
+            <div key={field.id} className="space-y-3">
               <label
                 htmlFor={field.id}
-                className="flex items-center gap-2 text-sm font-medium text-gray-700"
+                className="flex items-center gap-2 text-sm font-semibold text-[#4A443F]"
               >
-                <Icon className="w-4 h-4 text-primary-600" />
+                <Icon className="w-4 h-4 text-[#A6998A]" />
                 {field.label}
               </label>
               
               <div className="relative">
                 {field.prefix && (
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#A6998A]">
                     {field.prefix}
                   </span>
                 )}
@@ -286,19 +286,19 @@ export default function CalculatorForm({ inputs, onChange, userName, showHelp, o
                       onChange(field.id, isNaN(numValue) ? 0 : numValue)
                     }
                   }}
-                  className={`w-full px-4 py-3 border-2 rounded-xl shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-400 focus:shadow-md outline-none transition-all ${
+                  className={`w-full px-4 py-3.5 border-2 rounded-2xl shadow-sm focus:ring-2 focus:ring-[#D1C7BC] focus:border-[#A6998A] outline-none transition-all ${
                     (field as any).isPrefilled 
-                      ? 'text-gray-400 italic bg-gray-50/50 border-gray-200 placeholder:text-gray-300 placeholder:text-xs' 
-                      : 'text-gray-900 bg-white border-gray-200 hover:border-gray-300'
-                  } ${field.prefix ? 'pl-8' : ''} ${field.suffix ? 'pr-16' : ''}`}
+                      ? 'text-[#A6998A] italic bg-[#F3EFE9]/30 border-[#F3EFE9] placeholder:text-[#D1C7BC]/50' 
+                      : 'text-[#4A443F] bg-white border-[#F3EFE9] hover:border-[#D1C7BC]'
+                  } ${field.prefix ? 'pl-9' : ''} ${field.suffix ? 'pr-16' : ''}`}
                 />
                 {field.suffix && (
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#A6998A] text-sm">
                     {field.suffix}
                   </span>
                 )}
                 {(field as any).isRupee && field.value > 0 && (
-                  <div className="mt-1 text-xs text-gray-500">
+                  <div className="mt-1.5 text-xs text-[#8B8178] px-1">
                     ₹{formatIndianNumber(field.value)} = {formatIndianWords(field.value)}
                   </div>
                 )}
@@ -306,56 +306,56 @@ export default function CalculatorForm({ inputs, onChange, userName, showHelp, o
               
               {/* Help text - shown when toggle is ON */}
               {showHelp && (field as any).helpText && (
-                <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                  <p className="text-xs text-amber-800">
+                <div className="p-4 bg-[#FDFBF7] border border-[#F3EFE9] rounded-2xl shadow-sm">
+                  <p className="text-xs text-[#6D665E] leading-relaxed">
                     {(field as any).helpText}
                   </p>
                 </div>
               )}
               
               {/* Dynamic narration - always shown */}
-              <p className="text-xs text-gray-500 italic">
+              <p className="text-xs text-[#A6998A] italic px-1">
                 {field.getDynamicNarration ? field.getDynamicNarration(field.value) : field.narration}
               </p>
 
               {field.showInfo && field.id === 'expectedReturn' && (
-                <div className="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <div className="flex items-start gap-2 mb-3">
-                    <Info className="w-4 h-4 text-blue-600 mt-0.5" />
-                    <span className="text-xs font-medium text-blue-900">5-Year Average Post-Tax Returns:</span>
+                <div className="mt-4 p-4 bg-[#F3EFE9]/40 rounded-2xl border border-[#F3EFE9]">
+                  <div className="flex items-start gap-2 mb-4">
+                    <Info className="w-4 h-4 text-[#A6998A] mt-0.5" />
+                    <span className="text-xs font-bold text-[#4A443F]">5-Year Average Post-Tax Returns:</span>
                   </div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between items-center bg-white/50 p-2 rounded">
-                      <span className="text-blue-800">Large Cap Equity MF</span>
-                      <span className="font-bold text-blue-900">{AVG_LARGE_CAP.toFixed(1)}%</span>
+                  <div className="space-y-3 text-xs">
+                    <div className="flex justify-between items-center bg-white/60 p-3 rounded-xl">
+                      <span className="text-[#6D665E]">Large Cap Equity MF</span>
+                      <span className="font-bold text-[#4A443F]">{AVG_LARGE_CAP.toFixed(1)}%</span>
                     </div>
-                    <div className="flex justify-between items-center bg-white/50 p-2 rounded">
-                      <span className="text-blue-800">Long Term Debt MF</span>
-                      <span className="font-bold text-blue-900">{AVG_LONG_TERM_DEBT.toFixed(1)}%</span>
+                    <div className="flex justify-between items-center bg-white/60 p-3 rounded-xl">
+                      <span className="text-[#6D665E]">Long Term Debt MF</span>
+                      <span className="font-bold text-[#4A443F]">{AVG_LONG_TERM_DEBT.toFixed(1)}%</span>
                     </div>
-                    <div className="flex justify-between items-center bg-white/50 p-2 rounded">
-                      <span className="text-blue-800">FD (30% tax bracket)</span>
-                      <span className="font-bold text-blue-900">{AVG_FD.toFixed(1)}%</span>
+                    <div className="flex justify-between items-center bg-white/60 p-3 rounded-xl">
+                      <span className="text-[#6D665E]">SBI 1 Year FD</span>
+                      <span className="font-bold text-[#4A443F]">{AVG_FD.toFixed(1)}%</span>
                     </div>
                   </div>
                 </div>
               )}
 
               {field.showInfo && field.id === 'inflationRate' && (
-                <div className="mt-2 p-3 bg-orange-50 rounded-lg border border-orange-200">
-                  <div className="flex items-start gap-2 mb-2">
-                    <Info className="w-4 h-4 text-orange-600 mt-0.5" />
-                    <span className="text-xs font-medium text-orange-900">Last 3 Years Inflation:</span>
+                <div className="mt-4 p-4 bg-[#F3EFE9]/40 rounded-2xl border border-[#F3EFE9]">
+                  <div className="flex items-start gap-2 mb-3">
+                    <Info className="w-4 h-4 text-[#A6998A] mt-0.5" />
+                    <span className="text-xs font-bold text-[#4A443F]">Last 3 Years Inflation:</span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-xs">
+                  <div className="grid grid-cols-3 gap-3 text-xs">
                     {INFLATION_DATA.map((inf) => (
-                      <div key={inf.year} className="text-center">
-                        <div className="text-orange-700 font-semibold">{inf.rate}%</div>
-                        <div className="text-orange-600">{inf.year}</div>
+                      <div key={inf.year} className="text-center bg-white/60 p-2 rounded-xl">
+                        <div className="text-[#4A443F] font-bold">{inf.rate}%</div>
+                        <div className="text-[#A6998A] text-[10px]">{inf.year}</div>
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs text-orange-700 mt-2">
+                  <p className="text-[10px] text-[#A6998A] mt-3 text-center uppercase tracking-wider">
                     Average: {(INFLATION_DATA.reduce((sum, inf) => sum + inf.rate, 0) / INFLATION_DATA.length).toFixed(1)}%
                   </p>
                 </div>

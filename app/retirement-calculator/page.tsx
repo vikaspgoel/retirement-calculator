@@ -21,12 +21,12 @@ export const metadata = {
 
 export default function CalculatorPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-8 px-4">
+    <main className="min-h-screen bg-[#FDFCFB] py-12 px-4">
       {/* Back to home */}
-      <div className="max-w-4xl mx-auto mb-6">
+      <div className="max-w-4xl mx-auto mb-8">
         <Link 
           href="/" 
-          className="text-gray-400 hover:text-gray-600 text-sm transition-colors"
+          className="text-[#D1C7BC] hover:text-[#A6998A] text-sm transition-colors uppercase tracking-widest font-medium"
         >
           ← boredroom.in
         </Link>
@@ -38,9 +38,9 @@ export default function CalculatorPage() {
       </div>
 
       {/* Footer */}
-      <footer className="max-w-4xl mx-auto mt-12 text-center">
-        <p className="text-xs text-gray-400">
-          A tool by <Link href="/" className="hover:text-gray-600">boredroom.in</Link>
+      <footer className="max-w-4xl mx-auto mt-16 text-center">
+        <p className="text-[10px] text-[#D1C7BC] uppercase tracking-[0.2em]">
+          A tool by <Link href="/" className="hover:text-[#A6998A] transition-colors">boredroom.in</Link>
         </p>
       </footer>
     </main>
