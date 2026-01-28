@@ -24,7 +24,6 @@ export default function Calculator() {
   const [showResults, setShowResults] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
   const [showPrivacyNotes, setShowPrivacyNotes] = useState(false)
-  const [designOption, setDesignOption] = useState<'classic' | 'calm'>('calm')
   const resultsRef = useRef<HTMLDivElement>(null)
 
   // Auto-scroll to results when they appear
@@ -60,138 +59,59 @@ export default function Calculator() {
 
   if (!showCalculator) {
     return (
-      <div className="relative max-w-2xl mx-auto group">
-        {/* Subtle Design Toggle */}
-        <div className="absolute -top-12 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm border border-gray-100 flex gap-4 text-[10px] font-medium text-gray-400">
-            <button 
-              onClick={() => setDesignOption('classic')}
-              className={designOption === 'classic' ? 'text-primary-600' : 'hover:text-gray-600'}
-            >
-              Classic
-            </button>
-            <button 
-              onClick={() => setDesignOption('calm')}
-              className={designOption === 'calm' ? 'text-primary-600' : 'hover:text-gray-600'}
-            >
-              Calm Path
-            </button>
-          </div>
-        </div>
+      <div className="relative max-w-2xl mx-auto">
+        <div className="bg-[#FCFAF8] rounded-[2.5rem] p-10 sm:p-16 text-center border border-[#F3EFE9]">
+          <div className="max-w-md mx-auto animate-in fade-in zoom-in duration-700">
+            <h1 className="text-4xl sm:text-5xl font-bold text-[#4A443F] mb-12 tracking-tight">
+              Plan your retirement.
+            </h1>
+            
+            <form onSubmit={handleNameSubmit} className="space-y-12">
+              <div className="text-xl sm:text-2xl text-[#6D665E] font-medium leading-relaxed">
+                Hello, my name is{' '}
+                <input
+                  type="text"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  required
+                  className="inline-block w-24 sm:w-32 bg-transparent border-b-2 border-[#D1C7BC] focus:border-primary-400 outline-none text-[#4A443F] text-center transition-colors placeholder:text-[#D1C7BC]/50 font-bold"
+                  placeholder="VG"
+                  autoFocus
+                />
+                <br />
+                and I’m ready to plan.
+              </div>
+              
+              <button
+                type="submit"
+                className="mt-8 text-sm uppercase tracking-[0.2em] text-[#A6998A] hover:text-[#4A443F] transition-colors flex items-center gap-2 mx-auto group/btn"
+              >
+                Start the Journey
+                <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
+              </button>
+            </form>
 
-        {designOption === 'classic' ? (
-          <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-10 border border-gray-100">
-            <div className="mb-8 text-center">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                Plan your retirement.
-              </h1>
+            <div className="mt-16 pt-8 border-t border-[#F3EFE9]">
               <button 
                 onClick={() => setShowPrivacyNotes(!showPrivacyNotes)}
-                className="text-sm text-primary-600 hover:text-primary-700 underline underline-offset-4 transition-colors"
+                className="text-[10px] uppercase tracking-widest text-[#D1C7BC] hover:text-[#A6998A] transition-colors"
               >
-                What's this about?
+                {showPrivacyNotes ? 'Close Details' : 'What is this?'}
               </button>
               
               {showPrivacyNotes && (
-                <div className="mt-4 p-4 bg-gray-50 rounded-xl text-left animate-in fade-in slide-in-from-top-2 duration-300">
-                  <p className="text-sm font-semibold text-gray-800 mb-2">
-                    Hey there, looking to retire early?
+                <div className="mt-6 text-left space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                  <p className="text-xs text-[#8B8178] leading-relaxed">
+                    This is a quiet space for you to figure out how much you need to retire comfortably. We do the math; you do the dreaming.
                   </p>
-                  <p className="text-xs text-gray-600 leading-relaxed mb-3">
-                    This calculator helps you figure out how much money you need to retire comfortably. Answer a few simple questions about your age, savings, and lifestyle - we will do all the boring math for you.
+                  <p className="text-[10px] text-[#A6998A] italic leading-relaxed">
+                    Your data stays yours—we store nothing. Take a screenshot when you're done.
                   </p>
-                  <div className="pt-3 border-t border-gray-200">
-                    <p className="text-xs text-gray-400 italic mb-2">
-                      Heads up: We do not store any of your data or information. Nope, not even in our dreams. You might want to take screenshots of your results to remember them!
-                    </p>
-                    <p className="text-xs text-gray-400 italic">
-                      Pro tip: Play around with the numbers! Try different inputs, see what happens.
-                    </p>
-                  </div>
                 </div>
               )}
             </div>
-            
-            <form onSubmit={handleNameSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-600 mb-2">
-                  What's your name/ initials?
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    id="name"
-                    type="text"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    required
-                    className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-gray-900 bg-gray-50/50 text-lg transition-all"
-                    placeholder="e.g. VG"
-                    autoFocus
-                  />
-                  <button
-                    type="submit"
-                    className="px-6 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl transition-all shadow-md active:scale-95"
-                  >
-                    Go
-                  </button>
-                </div>
-              </div>
-            </form>
           </div>
-        ) : (
-          <div className="bg-[#FCFAF8] rounded-[2.5rem] p-10 sm:p-16 text-center border border-[#F3EFE9]">
-            <div className="max-w-md mx-auto animate-in fade-in zoom-in duration-700">
-              <h1 className="text-4xl sm:text-5xl font-bold text-[#4A443F] mb-12 tracking-tight">
-                Plan your retirement.
-              </h1>
-              
-              <form onSubmit={handleNameSubmit} className="space-y-12">
-                <div className="text-xl sm:text-2xl text-[#6D665E] font-medium leading-relaxed">
-                  Hello, my name is{' '}
-                  <input
-                    type="text"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    required
-                    className="inline-block w-24 sm:w-32 bg-transparent border-b-2 border-[#D1C7BC] focus:border-primary-400 outline-none text-[#4A443F] text-center transition-colors placeholder:text-[#D1C7BC]/50 font-bold"
-                    placeholder="VG"
-                    autoFocus
-                  />
-                  <br />
-                  and I’m ready to plan.
-                </div>
-                
-                <button
-                  type="submit"
-                  className="mt-8 text-sm uppercase tracking-[0.2em] text-[#A6998A] hover:text-[#4A443F] transition-colors flex items-center gap-2 mx-auto group/btn"
-                >
-                  Start the Journey
-                  <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
-                </button>
-              </form>
-
-              <div className="mt-16 pt-8 border-t border-[#F3EFE9]">
-                <button 
-                  onClick={() => setShowPrivacyNotes(!showPrivacyNotes)}
-                  className="text-[10px] uppercase tracking-widest text-[#D1C7BC] hover:text-[#A6998A] transition-colors"
-                >
-                  {showPrivacyNotes ? 'Close Details' : 'What is this?'}
-                </button>
-                
-                {showPrivacyNotes && (
-                  <div className="mt-6 text-left space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                    <p className="text-xs text-[#8B8178] leading-relaxed">
-                      This is a quiet space for you to figure out how much you need to retire comfortably. We do the math; you do the dreaming.
-                    </p>
-                    <p className="text-[10px] text-[#A6998A] italic leading-relaxed">
-                      Your data stays yours—we store nothing. Take a screenshot when you're done.
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     )
   }
