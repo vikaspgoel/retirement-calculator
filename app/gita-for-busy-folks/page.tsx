@@ -49,7 +49,7 @@ export default function GitaForBusyFolksPage() {
             सबसे आवश्यक श्लोकों का चयनित पाठ्यक्रम
           </p>
           <p className="font-sanskrit text-sm text-earth-500 mb-2">
-            हिंदी व्याख्या उपलब्ध: अध्याय 1, 2, 4, 5, 6
+            हिंदी व्याख्या उपलब्ध: अध्याय 1, 2, 3, 4, 5, 6
           </p>
           <div className="bg-saffron-50 border border-saffron-200 rounded-lg p-4 mt-4 max-w-2xl mx-auto">
             <p className="font-sanskrit text-sm text-earth-700 leading-relaxed">

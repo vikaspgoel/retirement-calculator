@@ -117,6 +117,31 @@ Your app is now live and you can share the link with anyone!
 - You can customize the domain name in Vercel settings
 - The free tier is perfect for sharing with friends and family
 
+### How to confirm your changes are live
+
+1. **Check locally first**  
+   In the project folder, run: `npm run build` then `npm run start`.  
+   Open http://localhost:3000/gita-for-busy-folks. You should see:
+   - No "Too busy, no time for Gita?" button
+   - Hindi in Sahitya font
+   - The line "हिंदी व्याख्या उपलब्ध: अध्याय 1, 2, 4, 5, 6"
+
+2. **Push does not always update the live site**  
+   Pushing to GitHub only updates boredroom.in if Vercel is set to auto-deploy from that repo.  
+   If you normally deploy with the batch file, you must run it after pushing:
+   - Double-click **deploy_boredroom.bat** (or run `npx vercel deploy --prod` in the project folder).
+   - Wait until it finishes. Only then is the new build live.
+
+3. **After deploying, check the live URL**  
+   Open https://boredroom.in/gita-for-busy-folks (or your live URL).  
+   If you still see the old version:
+   - Do a hard refresh: **Ctrl+Shift+R** (Windows) or **Cmd+Shift+R** (Mac).
+   - Or try in a private/incognito window to avoid cache.
+
+4. **If you use Vercel dashboard**  
+   Log in at https://vercel.com → your project → **Deployments**.  
+   The latest deployment should show the commit you just pushed. If the top deployment is old, trigger **Redeploy** from the "..." menu.
+
 ### Troubleshooting:
 - If the app doesn't work, check that environment variables are set correctly
 - Make sure you redeployed after adding environment variables
