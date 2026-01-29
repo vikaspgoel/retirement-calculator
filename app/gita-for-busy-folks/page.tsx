@@ -31,7 +31,7 @@ export default function GitaForBusyFolksPage() {
         <div className="mb-6">
           <Link 
             href="/gita-and-me" 
-            className="text-earth-600 hover:text-earth-800 text-sm transition-colors flex items-center gap-2"
+            className="font-sanskrit text-earth-600 hover:text-earth-800 text-sm transition-colors flex items-center gap-2"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -42,14 +42,17 @@ export default function GitaForBusyFolksPage() {
 
         {/* Title */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-earth-900 mb-3">
+          <h1 className="font-sanskrit text-3xl font-bold text-earth-900 mb-3">
             भगवद्गीता — हिंदी में एक संक्षिप्त पाठ्यक्रम
           </h1>
-          <p className="text-earth-600 text-base mb-3">
+          <p className="font-sanskrit text-earth-600 text-base mb-3">
             सबसे आवश्यक श्लोकों का चयनित पाठ्यक्रम
           </p>
+          <p className="font-sanskrit text-sm text-earth-500 mb-2">
+            हिंदी व्याख्या उपलब्ध: अध्याय 1, 2, 4, 5, 6
+          </p>
           <div className="bg-saffron-50 border border-saffron-200 rounded-lg p-4 mt-4 max-w-2xl mx-auto">
-            <p className="text-sm text-earth-700 leading-relaxed">
+            <p className="font-sanskrit text-sm text-earth-700 leading-relaxed">
               <strong className="text-saffron-800">सुझाव:</strong> हम अनुशंसा करते हैं कि आप इस पाठ्यक्रम को क्रम से पढ़ें — अध्याय अनुसार, श्लोक अनुसार। यह आपको गीता की शिक्षाओं को बेहतर समझने में मदद करेगा।
             </p>
           </div>
@@ -97,12 +100,12 @@ export default function GitaForBusyFolksPage() {
 
             {/* End of Chapter */}
             <div className="mt-12 pt-8 border-t-2 border-saffron-200 text-center">
-              <p className="text-sm font-medium text-saffron-700 mb-4">
+              <p className="font-sanskrit text-sm font-medium text-saffron-700 mb-4">
                 अध्याय {selectedChapter} का अंत
               </p>
               <Link
                 href="/gita-for-busy-folks/about"
-                className="text-xs text-earth-500 hover:text-earth-700 underline"
+                className="font-sanskrit text-xs text-earth-500 hover:text-earth-700 underline"
               >
                 व्याख्या के स्रोत के बारे में जानें
               </Link>

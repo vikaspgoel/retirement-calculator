@@ -39,16 +39,16 @@ export default function ChapterNav({ chapters, selectedChapter, onSelectChapter 
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          पिछला अध्याय
+          <span className="font-sanskrit">पिछला अध्याय</span>
         </button>
 
         {/* Chapter selector */}
         <div className="flex-1 flex items-center justify-center gap-2">
-          <label className="text-sm text-earth-600 font-medium">अध्याय:</label>
+          <label className="font-sanskrit text-sm text-earth-600 font-medium">अध्याय:</label>
           <select
             value={selectedChapter}
             onChange={(e) => onSelectChapter(Number(e.target.value))}
-            className="px-4 py-2 border border-earth-300 rounded-lg bg-white text-earth-900 focus:outline-none focus:ring-2 focus:ring-saffron-500 focus:border-saffron-500"
+            className="font-sanskrit px-4 py-2 border border-earth-300 rounded-lg bg-white text-earth-900 focus:outline-none focus:ring-2 focus:ring-saffron-500 focus:border-saffron-500"
           >
             {chapters.map((chapter) => (
               <option key={chapter} value={chapter}>
@@ -77,7 +77,7 @@ export default function ChapterNav({ chapters, selectedChapter, onSelectChapter 
 
       {/* Chapter indicator */}
       <div className="mt-3 text-center">
-        <p className="text-xs text-earth-500">
+        <p className="font-sanskrit text-xs text-earth-500">
           अध्याय {selectedChapter} / {chapters.length}
         </p>
       </div>
