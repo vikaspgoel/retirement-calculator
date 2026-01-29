@@ -40,3 +40,10 @@ html, body {
     text-wrap: balance;
   }
 }
+
+/* Devanagari font support */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+.font-sanskrit {
+  font-family: 'Noto Sans Devanagari', system-ui, sans-serif;
+}
