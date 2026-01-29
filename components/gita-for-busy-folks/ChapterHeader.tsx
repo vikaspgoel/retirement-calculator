@@ -12,7 +12,7 @@ export default function ChapterHeader({ chapterInfo, totalShlokas }: ChapterHead
     <div className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-8">
       {/* Chapter name */}
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-earth-900 mb-2">
+        <h2 className="font-sanskrit text-3xl font-bold text-earth-900 mb-2">
           अध्याय {chapterInfo.chapter}: {chapterInfo.nameHindi}
         </h2>
       </div>
@@ -23,7 +23,7 @@ export default function ChapterHeader({ chapterInfo, totalShlokas }: ChapterHead
           <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mb-3">
             अध्याय का सार
           </h3>
-          <div className="text-base text-earth-700 leading-relaxed space-y-3">
+          <div className="font-sanskrit text-lg text-earth-700 leading-relaxed space-y-3">
             {chapterInfo.summary.split('\n\n').map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}

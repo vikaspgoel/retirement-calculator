@@ -169,7 +169,7 @@ export default function ShlokaDisplay({ shloka, currentIndex, totalShlokas }: Sh
         </h3>
         <div className="p-4 bg-wisdom-50/50 rounded-lg border-l-4 border-wisdom-400">
           {shloka.hindiLiteral ? (
-            <p className="text-base text-earth-800 leading-relaxed">
+            <p className="font-sanskrit text-lg text-earth-800 leading-relaxed">
               {renderHighlightedText(shloka.hindiLiteral)}
             </p>
           ) : (
@@ -187,7 +187,7 @@ export default function ShlokaDisplay({ shloka, currentIndex, totalShlokas }: Sh
         </h3>
         <div className="p-4 bg-saffron-50/50 rounded-lg border-l-4 border-saffron-400">
           {shloka.hindiInterpretation ? (
-            <div className="text-base text-earth-800 leading-relaxed space-y-3">
+            <div className="font-sanskrit text-lg text-earth-800 leading-relaxed space-y-3">
               {shloka.hindiInterpretation.split('\n\n').map((paragraph, i) => (
                 <p key={i}>{renderHighlightedText(paragraph)}</p>
               ))}

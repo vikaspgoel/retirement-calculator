@@ -98,16 +98,6 @@ export default function GitaPage() {
         भगवद्गीता — हिंदी में एक संक्षिप्त पाठ्यक्रम
       </Link>
       
-      {/* "Too busy" button - for English audience - subtle */}
-      {!isLoading && (
-        <button
-          onClick={() => setShowBusyModal(true)}
-          className="fixed top-4 left-4 px-3 py-1.5 bg-earth-400/80 hover:bg-earth-500/90 text-white rounded-md shadow-sm hover:shadow-md transition-all text-xs font-normal font-sans whitespace-nowrap backdrop-blur-sm border border-earth-500/30"
-          style={{ position: 'fixed', zIndex: 9999, top: '1rem', left: '1rem' }}
-        >
-          Too busy, no time for Gita?
-        </button>
-      )}
       
       {/* Modal for "Too busy" content */}
       {showBusyModal && (
