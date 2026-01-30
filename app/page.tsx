@@ -2,23 +2,40 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+
+const TOOLS = [
+  {
+    href: '/retirement-calculator',
+    label: 'Retirement Calculator',
+    description:
+      'Turn retirement dreams into numbers with this simple, practical corpus calculator.',
+  },
+  {
+    href: '/gita-and-me',
+    label: 'Gita and me',
+    description:
+      "Your emotions aren't new—discover how the Bhagwad Gita addressed them through Arjuna.",
+  },
+  {
+    href: '/gita-for-busy-folks',
+    label: 'Gita Gyan',
+    description: 'कम शब्दों में गहन गीता ज्ञान, पूरी तरह हिंदी में',
+  },
+] as const
 
 export default function Home() {
-  const [showTools, setShowTools] = useState(false)
-
   return (
-    <main className="h-screen bg-black overflow-hidden">
-      <div className="h-full flex flex-col justify-center items-center px-4 py-6">
-        {/* Title - brighter colors, larger font */}
+    <main className="min-h-screen bg-black overflow-hidden">
+      <div className="min-h-full flex flex-col justify-center items-center px-4 py-6">
+        {/* Title - unchanged size */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide text-center">
           <span style={{ color: '#a8a29e' }}>bored</span>
           <span className="text-gray-400">room</span>
           <span className="text-white">.in</span>
         </h1>
-        
-        {/* Image */}
-        <div className="mt-4 sm:mt-6 w-56 sm:w-72 md:w-80 lg:w-96">
+
+        {/* Image - reduced size */}
+        <div className="mt-4 sm:mt-6 w-40 sm:w-48 md:w-56 lg:w-64">
           <Image
             src="/reading-sketch-v2.png"
             alt="Relaxing with cat"
@@ -28,36 +45,38 @@ export default function Home() {
             priority
           />
         </div>
-        
-        {/* Text - more visible */}
-        <div className="mt-4 sm:mt-6 text-center space-y-2">
-          <p className="text-gray-300 text-sm sm:text-base italic font-mono">
-            "Doing nothing is very hard to do, you never know when you're finished."
+
+        {/* Quote - same font as rest of page, subtle fade-in */}
+        <div className="mt-4 sm:mt-6 text-center animate-quote">
+          <p className="text-gray-300 text-sm sm:text-base italic">
+            &quot;Doing nothing is very hard to do, you never know when you&apos;re finished.&quot;
           </p>
         </div>
-        
-        {/* Tools - Pill style (Original) */}
-        <div className="mt-6 sm:mt-8 text-center">
-          <button
-            onClick={() => setShowTools(!showTools)}
-            className="text-black bg-gray-300 hover:bg-white text-sm sm:text-base font-semibold transition-all px-8 py-3 rounded-full"
-          >
-            Tools for Life
-          </button>
-          {showTools && (
-            <div className="mt-4 space-y-2">
-              <Link href="/retirement-calculator" className="block text-gray-200 hover:text-white text-sm sm:text-base">
-                → Retirement Calculator
-              </Link>
-              <Link href="/gita-and-me" className="block text-gray-200 hover:text-white text-sm sm:text-base">
-                → Gita and me
-              </Link>
-              <p className="text-gray-400 text-xs sm:text-sm italic">
-                More tools coming up
-              </p>
-            </div>
-          )}
-        </div>
+
+        {/* Tools - Option C only */}
+        <nav className="mt-6 sm:mt-8 w-full max-w-md text-center">
+          <div className="space-y-0 border-t border-gray-800">
+            {TOOLS.map((t) => (
+              <div
+                key={t.href}
+                className="border-b border-gray-800 py-4 last:border-0"
+              >
+                <Link
+                  href={t.href}
+                  className="text-base sm:text-lg text-gray-200 hover:text-white font-medium transition-colors block"
+                >
+                  → {t.label}
+                </Link>
+                <p
+                  className={`mt-1 text-sm text-gray-400 ${t.href === '/gita-for-busy-folks' ? 'font-sanskrit' : ''}`}
+                  lang={t.href === '/gita-for-busy-folks' ? 'hi' : undefined}
+                >
+                  {t.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </nav>
       </div>
     </main>
   )
