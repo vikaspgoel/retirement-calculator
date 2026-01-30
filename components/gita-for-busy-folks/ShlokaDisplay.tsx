@@ -160,7 +160,7 @@ export default function ShlokaDisplay({ shloka, currentIndex, totalShlokas }: Sh
           मूल श्लोक
         </h3>
         <div className="p-4 bg-earth-50 rounded-lg border-l-4 border-saffron-400">
-          <p className="font-sanskrit text-lg md:text-xl leading-relaxed text-earth-900 whitespace-pre-line">
+          <p className="font-sanskrit text-lg md:text-xl leading-relaxed text-earth-700 whitespace-pre-line">
             {typeof shloka.sanskrit === 'string' ? shloka.sanskrit.normalize('NFC') : shloka.sanskrit}
           </p>
         </div>
@@ -173,7 +173,7 @@ export default function ShlokaDisplay({ shloka, currentIndex, totalShlokas }: Sh
         </h3>
         <div className="p-4 bg-wisdom-50/50 rounded-lg border-l-4 border-wisdom-400">
           {shloka.hindiLiteral ? (
-            <p className="font-sanskrit text-lg text-earth-800 leading-relaxed">
+            <p className="font-sanskrit text-lg text-earth-700 leading-relaxed">
               {renderHighlightedText(typeof shloka.hindiLiteral === 'string' ? shloka.hindiLiteral.normalize('NFC') : shloka.hindiLiteral)}
             </p>
           ) : (
@@ -191,7 +191,7 @@ export default function ShlokaDisplay({ shloka, currentIndex, totalShlokas }: Sh
         </h3>
         <div className="p-4 bg-saffron-50/50 rounded-lg border-l-4 border-saffron-400">
           {shloka.hindiInterpretation ? (
-            <div className="font-sanskrit text-lg text-earth-800 leading-relaxed space-y-3">
+            <div className="font-sanskrit text-lg text-earth-700 leading-relaxed space-y-3">
               {(typeof shloka.hindiInterpretation === 'string' ? shloka.hindiInterpretation.normalize('NFC') : shloka.hindiInterpretation)
                 .split('\n\n')
                 .map((paragraph: string, i: number) => (
