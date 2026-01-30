@@ -90,22 +90,21 @@ export default function GitaPage() {
           </div>
         </div>
       )}
-      {/* Top strip: "Too busy?" teaser — opens modal */}
+      {/* Top strip: subtle "Too busy?" teaser (English only) — opens modal */}
       <div className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-center min-h-14 py-2.5 px-4 bg-[#fbf7f0] border-b border-earth-200">
         <button
           type="button"
           onClick={() => setShowBusyModal(true)}
-          className="text-earth-700 hover:text-saffron-600 font-medium underline underline-offset-2 transition-colors text-sm text-center"
+          className="text-earth-500 hover:text-saffron-600 font-medium underline underline-offset-2 transition-colors text-sm text-center"
         >
-          <span>Too busy or young to read the Gita?</span>
-          <span className="font-sanskrit ml-1.5">क्या आप सोचते हैं कि आपके पास गीता पढ़ने का समय नहीं है?</span>
+          Too busy or young to read the Gita?
         </button>
       </div>
-      {/* Bottom bar: Hindi course option (subtle, non-dominant) */}
-      <div className="fixed bottom-0 left-0 right-0 z-[100] flex items-center justify-center py-2.5 px-4 bg-earth-100/95 border-t border-earth-200">
+      {/* Bottom bar: Hindi course — shifted up and slightly larger so it stays visible when toolbar shows */}
+      <div className="fixed bottom-3 left-4 right-4 z-[100] flex items-center justify-center py-3 px-4 rounded-lg bg-earth-100/95 border border-earth-200 shadow-sm">
         <Link
           href="/gita-for-busy-folks"
-          className="text-earth-700 hover:text-saffron-600 font-medium underline underline-offset-2 transition-colors text-sm"
+          className="text-earth-700 hover:text-saffron-600 font-medium underline underline-offset-2 transition-colors text-base"
         >
           हिंदी में संक्षिप्त पाठ्यक्रम
         </Link>
@@ -298,7 +297,7 @@ export default function GitaPage() {
       <iframe
         ref={iframeRef}
         src="https://gita-and-you.vercel.app/"
-        className="w-full mt-14 h-[calc(100vh-48px-56px)] border-0 block"
+        className="w-full mt-14 h-[calc(100vh-3.5rem-4rem)] border-0 block"
         title="Gita and You"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         onLoad={handleIframeLoad}
