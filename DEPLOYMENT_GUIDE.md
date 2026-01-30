@@ -124,7 +124,7 @@ Your app is now live and you can share the link with anyone!
    Open http://localhost:3000/gita-for-busy-folks. You should see:
    - No "Too busy, no time for Gita?" button
    - Hindi in Sahitya font
-   - The line "हिंदी व्याख्या उपलब्ध: अध्याय 1, 2, 4, 5, 6"
+   - सुझाव section with "रोज़ १५ मिनट, ५ श्लोक — एक महीने में पूरा"
 
 2. **Push does not always update the live site**  
    Pushing to GitHub only updates boredroom.in if Vercel is set to auto-deploy from that repo.  

@@ -36,7 +36,7 @@ export default function GitaForBusyFolksPage() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            गीता और मैं पर वापस जाएँ
+            Back to Gita and Me
           </Link>
         </div>
 
@@ -48,12 +48,9 @@ export default function GitaForBusyFolksPage() {
           <p className="font-sanskrit text-earth-600 text-base mb-3">
             सबसे आवश्यक श्लोकों का चयनित पाठ्यक्रम
           </p>
-          <p className="font-sanskrit text-sm text-earth-500 mb-2">
-            हिंदी व्याख्या उपलब्ध: अध्याय 1, 2, 3, 4, 5, 6
-          </p>
           <div className="bg-saffron-50 border border-saffron-200 rounded-lg p-4 mt-4 max-w-2xl mx-auto">
             <p className="font-sanskrit text-sm text-earth-700 leading-relaxed">
-              <strong className="text-saffron-800">सुझाव:</strong> हम अनुशंसा करते हैं कि आप इस पाठ्यक्रम को क्रम से पढ़ें — अध्याय अनुसार, श्लोक अनुसार। यह आपको गीता की शिक्षाओं को बेहतर समझने में मदद करेगा।
+              <strong className="text-saffron-800">सुझाव:</strong> हम अनुशंसा करते हैं कि आप इस पाठ्यक्रम को क्रम से पढ़ें — अध्याय अनुसार, श्लोक अनुसार। यह आपको गीता की शिक्षाओं को बेहतर समझने में मदद करेगा। रोज़ १५ मिनट, ५ श्लोक — एक महीने में पूरा। शुभ पाठ।
             </p>
           </div>
         </div>
