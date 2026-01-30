@@ -1,4 +1,5 @@
-/* Load Sahitya first so it's available for .font-sanskrit (must be at top) */
+/* Devanagari: Noto Serif Devanagari (full Unicode support) + Sahitya fallback */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sahitya:wght@400;700&display=swap');
 
 @tailwind base;
@@ -44,7 +45,14 @@ html, body {
   }
 }
 
-/* Devanagari: force Sahitya so it overrides any Tailwind or fallback */
+/* Devanagari: Noto Serif Devanagari first (best ligature/anusvara/nukta support), then Sahitya. */
+/* Do not use letter-spacing, word-spacing, or text-transform on Devanagari—they break conjuncts. */
+.font-sanskrit,
+.font-sanskrit * {
+  font-family: 'Noto Serif Devanagari', 'Sahitya', system-ui, sans-serif !important;
+  letter-spacing: 0 !important;
+  word-spacing: normal;
+}
 .font-sanskrit {
-  font-family: 'Sahitya', system-ui, sans-serif !important;
+  text-transform: none;
 }

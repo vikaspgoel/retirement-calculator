@@ -20,13 +20,15 @@ export default function ChapterHeader({ chapterInfo, totalShlokas }: ChapterHead
       {/* Chapter summary */}
       {chapterInfo.summary ? (
         <div className="mt-6 pt-6 border-t border-earth-200">
-          <h3 className="font-sanskrit text-sm font-semibold uppercase tracking-wider text-earth-500 mb-3">
+          <h3 className="font-sanskrit text-sm font-semibold uppercase text-earth-500 mb-3">
             अध्याय का सार
           </h3>
           <div className="font-sanskrit text-lg text-earth-700 leading-relaxed space-y-3">
-            {chapterInfo.summary.split('\n\n').map((paragraph, i) => (
-              <p key={i}>{paragraph}</p>
-            ))}
+            {(typeof chapterInfo.summary === 'string' ? chapterInfo.summary.normalize('NFC') : chapterInfo.summary)
+              .split('\n\n')
+              .map((paragraph: string, i: number) => (
+                <p key={i}>{paragraph}</p>
+              ))}
           </div>
         </div>
       ) : (

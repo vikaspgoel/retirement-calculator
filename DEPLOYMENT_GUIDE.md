@@ -123,7 +123,7 @@ Your app is now live and you can share the link with anyone!
    In the project folder, run: `npm run build` then `npm run start`.  
    Open http://localhost:3000/gita-for-busy-folks. You should see:
    - No "Too busy, no time for Gita?" button
-   - Hindi in Sahitya font
+   - Hindi in Noto Serif Devanagari (no dotted circles; conjuncts like गुणों, योग्य render correctly)
    - सुझाव section with "रोज़ १५ मिनट, ५ श्लोक — एक महीने में पूरा"
 
 2. **Push does not always update the live site**  

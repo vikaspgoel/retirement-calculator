@@ -156,28 +156,28 @@ export default function ShlokaDisplay({ shloka, currentIndex, totalShlokas }: Sh
 
       {/* 1. Original Shloka (Sanskrit) */}
       <div className="mb-6">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-earth-500 mb-3">
+        <h3 className="text-xs font-semibold uppercase text-earth-500 mb-3 font-sanskrit">
           मूल श्लोक
         </h3>
         <div className="p-4 bg-earth-50 rounded-lg border-l-4 border-saffron-400">
           <p className="font-sanskrit text-lg md:text-xl leading-relaxed text-earth-900 whitespace-pre-line">
-            {shloka.sanskrit}
+            {typeof shloka.sanskrit === 'string' ? shloka.sanskrit.normalize('NFC') : shloka.sanskrit}
           </p>
         </div>
       </div>
 
       {/* 2. शब्दार्थ / भावार्थ (Hindi Literal Meaning) */}
       <div className="mb-6">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-earth-500 mb-3">
+        <h3 className="text-xs font-semibold uppercase text-earth-500 mb-3 font-sanskrit">
           शब्दार्थ / भावार्थ
         </h3>
         <div className="p-4 bg-wisdom-50/50 rounded-lg border-l-4 border-wisdom-400">
           {shloka.hindiLiteral ? (
             <p className="font-sanskrit text-lg text-earth-800 leading-relaxed">
-              {renderHighlightedText(shloka.hindiLiteral)}
+              {renderHighlightedText(typeof shloka.hindiLiteral === 'string' ? shloka.hindiLiteral.normalize('NFC') : shloka.hindiLiteral)}
             </p>
           ) : (
-            <p className="text-sm text-earth-500 italic">
+            <p className="text-sm text-earth-500 italic font-sanskrit">
               शब्दार्थ जल्द ही उपलब्ध होगा।
             </p>
           )}
@@ -186,18 +186,20 @@ export default function ShlokaDisplay({ shloka, currentIndex, totalShlokas }: Sh
 
       {/* 3. व्याख्या / तात्पर्य (Hindi Interpretation) */}
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-earth-500 mb-3">
+        <h3 className="text-xs font-semibold uppercase text-earth-500 mb-3 font-sanskrit">
           व्याख्या / तात्पर्य
         </h3>
         <div className="p-4 bg-saffron-50/50 rounded-lg border-l-4 border-saffron-400">
           {shloka.hindiInterpretation ? (
             <div className="font-sanskrit text-lg text-earth-800 leading-relaxed space-y-3">
-              {shloka.hindiInterpretation.split('\n\n').map((paragraph, i) => (
-                <p key={i}>{renderHighlightedText(paragraph)}</p>
-              ))}
+              {(typeof shloka.hindiInterpretation === 'string' ? shloka.hindiInterpretation.normalize('NFC') : shloka.hindiInterpretation)
+                .split('\n\n')
+                .map((paragraph: string, i: number) => (
+                  <p key={i}>{renderHighlightedText(paragraph)}</p>
+                ))}
             </div>
           ) : (
-            <p className="text-sm text-earth-500 italic">
+            <p className="text-sm text-earth-500 italic font-sanskrit">
               व्याख्या जल्द ही उपलब्ध होगी।
             </p>
           )}
