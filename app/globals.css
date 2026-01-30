@@ -1,5 +1,21 @@
-/* Devanagari: Noto Serif Devanagari (full Unicode support) + Sahitya fallback */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;700&display=swap');
+/* Devanagari: load ONLY the Devanagari woff2 so the correct glyphs (conjuncts, anusvara, ज्ञ) are used. */
+/* Noto Sans Devanagari often has better conjunct coverage than Serif. */
+@font-face {
+  font-family: 'Noto Sans Devanagari Script';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notosansdevanagari/v30/TuG7UUFzXI5FBtUq5a8bjKYTZjtRU6Sgv3NaV_SNmI0b8QQCQmHN5TV_9qo.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+@font-face {
+  font-family: 'Noto Sans Devanagari Script';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notosansdevanagari/v30/TuG7UUFzXI5FBtUq5a8bjKYTZjtRU6Sgv3NaV_SNmI0b8QQCQmHN5TV_9qo.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
 @import url('https://fonts.googleapis.com/css2?family=Sahitya:wght@400;700&display=swap');
 
 @tailwind base;
@@ -45,13 +61,14 @@ html, body {
   }
 }
 
-/* Devanagari: Noto Serif Devanagari first (best ligature/anusvara/nukta support), then Sahitya. */
+/* Devanagari: use Script-specific font first so only Devanagari woff2 is used (avoids Latin subset showing dotted circles). */
 /* Do not use letter-spacing, word-spacing, or text-transform on Devanagari—they break conjuncts. */
 .font-sanskrit,
 .font-sanskrit * {
-  font-family: 'Noto Serif Devanagari', 'Sahitya', system-ui, sans-serif !important;
+  font-family: 'Noto Sans Devanagari Script', 'Noto Sans Devanagari', 'Sahitya', system-ui, sans-serif !important;
   letter-spacing: 0 !important;
   word-spacing: normal;
+  font-feature-settings: 'kern' 1, 'ccmp' 1;
 }
 .font-sanskrit {
   text-transform: none;
