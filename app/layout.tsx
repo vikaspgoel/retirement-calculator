@@ -14,6 +14,22 @@ const inter = Inter({
   variable: '--font-inter'
 })
 
+// Sahitya for Hindi/Devanagari (Gita pages) – loaded so font-sanskrit uses it
+const sahitya = {
+  variable: '--font-sanskrit-family',
+  className: '', // not applied globally; Tailwind font-sanskrit uses the variable
+}
+// Load Sahitya via link in layout so it's available; Tailwind applies it via font-sanskrit
+try {
+  const SahityaFont = require('next/font/google').Sahitya
+  if (SahityaFont) {
+    const loaded = SahityaFont({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-sanskrit-family' })
+    Object.assign(sahitya, loaded)
+  }
+} catch (_) {
+  // Sahitya may not be in next/font; globals.css @import will provide it
+}
+
 export const metadata: Metadata = {
   title: 'bored room | we are busy, doing nothing',
   description: "where doing nothing isn't a bug, it's a feature.",

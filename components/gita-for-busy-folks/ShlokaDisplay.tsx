@@ -113,9 +113,13 @@ export default function ShlokaDisplay({ shloka, currentIndex, totalShlokas }: Sh
     setTooltip(null)
   }
 
+  // Strip Markdown asterisks (** bold, * italic) so they don't show as raw characters
+  const stripMarkdownAsterisks = (text: string) =>
+    text.replace(/\*\*/g, '').replace(/\*/g, '')
+
   const renderHighlightedText = (text: string) => {
-    const parts = highlightConcepts(text)
-    if (!parts) return <span>{text}</span>
+    const parts = highlightConcepts(stripMarkdownAsterisks(text))
+    if (!parts) return <span>{stripMarkdownAsterisks(text)}</span>
 
     return (
       <>

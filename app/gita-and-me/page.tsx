@@ -7,6 +7,7 @@ export default function GitaPage() {
   const [iframeError, setIframeError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [showBusyModal, setShowBusyModal] = useState(false)
+  const [busyModalLang, setBusyModalLang] = useState<'en' | 'hi'>('en')
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const checkIntervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -89,16 +90,27 @@ export default function GitaPage() {
           </div>
         </div>
       )}
-      {/* Button to Gita for Busy Folks */}
-      <Link
-        href="/gita-for-busy-folks"
-        className="fixed top-4 right-4 z-[100] px-4 py-2 bg-saffron-500 hover:bg-saffron-600 text-white rounded-lg shadow-lg transition-colors text-sm font-medium"
-        style={{ position: 'fixed' }}
-      >
-        भगवद्गीता — हिंदी में एक संक्षिप्त पाठ्यक्रम
-      </Link>
-      
-      
+      {/* Top strip: "Too busy?" teaser — opens modal */}
+      <div className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-center min-h-14 py-2.5 px-4 bg-[#fbf7f0] border-b border-earth-200">
+        <button
+          type="button"
+          onClick={() => setShowBusyModal(true)}
+          className="text-earth-700 hover:text-saffron-600 font-medium underline underline-offset-2 transition-colors text-sm text-center"
+        >
+          <span>Too busy or young to read the Gita?</span>
+          <span className="font-sanskrit ml-1.5">क्या आप सोचते हैं कि आपके पास गीता पढ़ने का समय नहीं है?</span>
+        </button>
+      </div>
+      {/* Bottom bar: Hindi course option (subtle, non-dominant) */}
+      <div className="fixed bottom-0 left-0 right-0 z-[100] flex items-center justify-center py-2.5 px-4 bg-earth-100/95 border-t border-earth-200">
+        <Link
+          href="/gita-for-busy-folks"
+          className="text-earth-700 hover:text-saffron-600 font-medium underline underline-offset-2 transition-colors text-sm"
+        >
+          हिंदी में संक्षिप्त पाठ्यक्रम
+        </Link>
+      </div>
+
       {/* Modal for "Too busy" content */}
       {showBusyModal && (
         <div 
@@ -109,8 +121,10 @@ export default function GitaPage() {
             className="bg-[#fbf7f0] rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-start mb-6 pb-4 border-b border-earth-200">
-              <h2 className="text-2xl font-bold text-earth-900 font-sans">We Are All 'Arjuna'</h2>
+            <div className="flex justify-between items-start mb-4 pb-4 border-b border-earth-200">
+              <h2 className="text-2xl font-bold text-earth-900 font-sans">
+                {busyModalLang === 'en' ? "We Are All 'Arjuna'" : 'हम सभी \'अर्जुन\' हैं'}
+              </h2>
               <button
                 onClick={() => setShowBusyModal(false)}
                 className="text-earth-400 hover:text-earth-600 transition-colors"
@@ -121,7 +135,26 @@ export default function GitaPage() {
                 </svg>
               </button>
             </div>
+
+            {/* Tab switcher: English | हिंदी */}
+            <div className="flex gap-4 mb-6 border-b border-earth-200 pb-2">
+              <button
+                type="button"
+                onClick={() => setBusyModalLang('en')}
+                className={`text-sm font-medium transition-colors ${busyModalLang === 'en' ? 'text-saffron-600 border-b-2 border-saffron-500 -mb-0.5 pb-0.5' : 'text-earth-500 hover:text-earth-700'}`}
+              >
+                English
+              </button>
+              <button
+                type="button"
+                onClick={() => setBusyModalLang('hi')}
+                className={`text-sm font-medium font-sanskrit transition-colors ${busyModalLang === 'hi' ? 'text-saffron-600 border-b-2 border-saffron-500 -mb-0.5 pb-0.5' : 'text-earth-500 hover:text-earth-700'}`}
+              >
+                हिंदी
+              </button>
+            </div>
             
+            {busyModalLang === 'en' && (
             <div className="max-w-none text-earth-700 leading-relaxed space-y-6 font-sans">
               <p className="text-xl font-semibold text-earth-900 mb-4 font-sans">
                 We Are All 'Arjuna': Why the Gita Is Needed in the Battlefield of Life
@@ -192,13 +225,80 @@ export default function GitaPage() {
                 </p>
               </div>
             </div>
+            )}
+
+            {busyModalLang === 'hi' && (
+            <div className="max-w-none text-earth-700 leading-relaxed space-y-6 font-sanskrit">
+              <p className="text-xl font-semibold text-earth-900 mb-4">
+                हम सभी 'अर्जुन' हैं: जीवन के कुरुक्षेत्र में गीता की आवश्यकता
+              </p>
+              <p className="text-base text-earth-700">
+                श्रीमद्भगवद्गीता के प्रथम अध्याय और द्वितीय अध्याय के प्रारंभिक श्लोकों में अर्जुन की जो मानसिक स्थिति वर्णित है, वह आज के आधुनिक, कार्यरत मनुष्य की स्थिति का एक अत्यंत सटीक प्रतिबिंब है।
+              </p>
+              <p className="text-base text-earth-700">
+                जब अर्जुन कहते हैं—<em className="text-earth-800 font-medium">"मेरे हाथ-पैर शिथिल हो रहे हैं, मुख सूख रहा है… शरीर कांप रहा है, रोम खड़े हो रहे हैं… मन चकरा रहा है"</em>—तो यह केवल किसी प्राचीन योद्धा की व्यथा नहीं है। आज की भाषा में देखें, तो ये वही लक्षण हैं जिन्हें हम तीव्र मानसिक तनाव, चिंता या निर्णय-जड़ता कहते हैं।
+              </p>
+              <p className="text-base text-earth-700">
+                अंतर बस इतना है कि यह स्थिति किसी साधारण व्यक्ति की नहीं, बल्कि अपने समय के सबसे सक्षम, प्रशिक्षित और आत्मविश्वासी योद्धा की है।
+              </p>
+              <div className="mt-8 pt-6 border-t border-earth-200">
+                <h3 className="text-lg font-semibold text-earth-900 mb-4">'अर्जुन' होने की तीन शर्तें</h3>
+                <p className="mb-4 text-base text-earth-700">
+                  एक गहन विमर्श के अनुसार, किसी व्यक्ति का 'अर्जुन' की अवस्था में होना तीन आवश्यक कारकों पर निर्भर करता है:
+                </p>
+                <ul className="list-disc list-inside space-y-3 ml-4 text-base text-earth-700">
+                  <li>
+                    <strong className="text-earth-900 font-semibold">असमंजस (Asmanjas — Inner Conflict):</strong> जब कर्तव्य, मूल्य और भावनाएँ आपस में टकराने लगें।
+                  </li>
+                  <li>
+                    <strong className="text-earth-900 font-semibold">विकल्प (Vikalp — Choices):</strong> जब एक से अधिक रास्ते उपलब्ध हों, और हर निर्णय की अपनी कीमत हो।
+                  </li>
+                  <li>
+                    <strong className="text-earth-900 font-semibold">क्षमता (Kshamta — Capability):</strong> जब व्यक्ति के पास कार्य करने की पूरी योग्यता और सामर्थ्य हो।
+                  </li>
+                </ul>
+                <p className="mt-4 text-base text-earth-700">
+                  अर्जुन अक्षम नहीं थे। समस्या यह थी कि सक्षम होने के बावजूद वे स्पष्ट नहीं थे। और यदि हम ईमानदारी से देखें, तो यही स्थिति आज हम में से अधिकांश की है—हमारे पास कौशल है, अवसर हैं, विकल्प हैं… और इसी कारण हम भीतर से उलझे रहते हैं।
+                </p>
+                <p className="mt-4 font-medium text-earth-900">
+                  इस अर्थ में, हम सभी—लगभग हर दिन—अर्जुन ही हैं।
+                </p>
+              </div>
+              <div className="mt-8 pt-6 border-t border-earth-200">
+                <h3 className="text-lg font-semibold text-earth-900 mb-4">समर्पण: समाधान की वास्तविक शुरुआत</h3>
+                <p className="text-base text-earth-700">
+                  गीता का निर्णायक मोड़ तब आता है जब अध्याय 2, श्लोक 7 में अर्जुन अपनी सीमा स्वीकार करते हैं और श्रीकृष्ण से कहते हैं कि उनकी बुद्धि भ्रमित हो चुकी है और उन्हें स्पष्ट मार्गदर्शन की आवश्यकता है। यह क्षण अत्यंत महत्वपूर्ण है।
+                </p>
+                <p className="mt-4 text-base text-earth-700">
+                  यहाँ अर्जुन तर्क करना बंद करते हैं और सुनने के लिए तैयार होते हैं। यह समर्पण कमजोरी नहीं है—यह परिपक्वता है। यदि अर्जुन जैसा शक्तिशाली और वीर व्यक्ति सहायता माँग सकता है, तो हमें अपने जीवन के जटिल निर्णयों में मार्गदर्शन स्वीकार करने से क्या रोकता है?
+                </p>
+              </div>
+              <div className="mt-8 pt-6 border-t border-earth-200">
+                <h3 className="text-lg font-semibold text-earth-900 mb-4">हमारा 'कृष्ण' कौन है?</h3>
+                <p className="text-base text-earth-700">
+                  आज हमारे रथ पर साक्षात कृष्ण उपस्थित नहीं हैं। लेकिन हमारे पास वह संवाद उपलब्ध है, जो हर युग में, हर भूमिका में और हर दबाव में मनुष्य का मार्गदर्शन करता है—भगवद्गीता।
+                </p>
+                <p className="mt-4 text-base text-earth-700">
+                  यह न तो चमत्कारों की पुस्तक है और न ही नैतिक भाषणों का संग्रह। यह विवेक, कर्म, चरित्र और मानसिक संतुलन की व्यावहारिक समझ प्रदान करती है। यह उस 'कृष्ण' की खोज है जो बाहर नहीं, बल्कि हमारे भीतर बैठा वह सारथी है—जो तब बोलता है, जब हम अर्जुन की तरह यह स्वीकार कर लेते हैं कि अब हमें सुनने की आवश्यकता है।
+                </p>
+                <p className="mt-4 text-base text-earth-700">
+                  यदि हम अर्जुन हैं—असमंजस में, विकल्पों के बीच और फिर भी सक्षम—तो गीता कोई धार्मिक ग्रंथ भर नहीं, बल्कि जीवन का जीवंत संवाद है।
+                </p>
+              </div>
+              <div className="mt-8 p-5 bg-saffron-50/80 border-l-4 border-saffron-400 rounded-lg">
+                <p className="text-base text-earth-900 font-medium leading-relaxed">
+                  और अंत में यह याद रखना आवश्यक है कि गीता किसी शांत आश्रम में नहीं कही गई थी। यह युद्धभूमि में कही गई—सबसे व्यस्त, सबसे निर्णायक और सबसे तनावपूर्ण क्षण में। अर्जुन उस समय जीवन के शिखर पर थे, अपने करियर और सामर्थ्य के चरम पर। इसलिए यदि कभी मन यह कहे कि "अभी समय नहीं है", तो बस यही स्मरण करें—गीता उनके लिए कही गई थी, जो सबसे अधिक व्यस्त थे। और शायद, इसलिए ही वह हमारे लिए भी उतनी ही आवश्यक है।
+                </p>
+              </div>
+            </div>
+            )}
           </div>
         </div>
       )}
       <iframe
         ref={iframeRef}
         src="https://gita-and-you.vercel.app/"
-        className="w-full h-full border-0"
+        className="w-full mt-14 h-[calc(100vh-48px-56px)] border-0 block"
         title="Gita and You"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         onLoad={handleIframeLoad}

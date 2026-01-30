@@ -20,7 +20,7 @@ export default function ChapterHeader({ chapterInfo, totalShlokas }: ChapterHead
       {/* Chapter summary */}
       {chapterInfo.summary ? (
         <div className="mt-6 pt-6 border-t border-earth-200">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mb-3">
+          <h3 className="font-sanskrit text-sm font-semibold uppercase tracking-wider text-earth-500 mb-3">
             अध्याय का सार
           </h3>
           <div className="font-sanskrit text-lg text-earth-700 leading-relaxed space-y-3">
@@ -31,7 +31,7 @@ export default function ChapterHeader({ chapterInfo, totalShlokas }: ChapterHead
         </div>
       ) : (
         <div className="mt-6 pt-6 border-t border-earth-200">
-          <p className="text-sm text-earth-500 italic">
+          <p className="font-sanskrit text-sm text-earth-500 italic">
             अध्याय का सार जल्द ही उपलब्ध होगा।
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function ChapterHeader({ chapterInfo, totalShlokas }: ChapterHead
 
       {/* Divider before shlokas */}
       <div className="mt-8 pt-6 border-t-2 border-saffron-200">
-        <p className="text-sm font-medium text-saffron-700 text-center">
+        <p className="font-sanskrit text-sm font-medium text-saffron-700 text-center">
           चयनित श्लोक ({totalShlokas} श्लोक)
         </p>
       </div>

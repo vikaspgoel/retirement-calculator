@@ -1,3 +1,6 @@
+/* Load Sahitya first so it's available for .font-sanskrit (must be at top) */
+@import url('https://fonts.googleapis.com/css2?family=Sahitya:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -41,9 +44,7 @@ html, body {
   }
 }
 
-/* Devanagari font support */
-@import url('https://fonts.googleapis.com/css2?family=Sahitya&display=swap');
-
+/* Devanagari: force Sahitya so it overrides any Tailwind or fallback */
 .font-sanskrit {
-  font-family: 'Sahitya', system-ui, sans-serif;
+  font-family: 'Sahitya', system-ui, sans-serif !important;
 }

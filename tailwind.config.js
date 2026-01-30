@@ -10,7 +10,7 @@ module.exports = {
       fontFamily: {
         mono: ['var(--font-mono)', 'monospace'],
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        sanskrit: ['Noto Sans Devanagari', 'system-ui', 'sans-serif'],
+        sanskrit: ['Sahitya', 'system-ui', 'sans-serif'],
       },
       colors: {
         primary: {

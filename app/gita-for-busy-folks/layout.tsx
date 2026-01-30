@@ -24,5 +24,5 @@ export default function GitaForBusyFolksLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <>{children}</>
+  return <div className="font-sanskrit">{children}</div>
 }
